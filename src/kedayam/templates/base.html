@@ -20,7 +20,7 @@
       </a>
       <nav class="langs" aria-label="{{ t('language') }}">
         {% for code in langs %}
-          <a href="{{ request.url.path if request.url.path != '/check' else '/' }}?lang={{ code }}" lang="{{ code }}" hreflang="{{ code }}"
+          <a href="{{ request.url.path if request.url.path not in ('/check', '/check-image', '/family/remove') else '/' }}?lang={{ code }}" lang="{{ code }}" hreflang="{{ code }}"
              {% if code == lang %}aria-current="true" class="on"{% endif %}>{{ lang_names[code] }}</a>
         {% endfor %}
       </nav>
@@ -33,7 +33,7 @@
     <div class="wrap">
       <p class="helpline"><strong>{{ t('helpline') }}</strong> · cybercrime.gov.in</p>
       <p>{{ t('limit_note') }}</p>
-      <p><a href="/about?lang={{ lang }}">{{ t('about') }}</a></p>
+      <p><a href="/about?lang={{ lang }}">{{ t('about') }}</a> · <a href="/family?lang={{ lang }}">{{ t('family_title') }}</a></p>
     </div>
   </footer>
 </body>

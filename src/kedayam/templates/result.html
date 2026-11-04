@@ -25,7 +25,13 @@
   <section class="card" aria-labelledby="todo">
     <h2 id="todo">{{ t('todo') }}</h2>
     <ol class="actions">
+      {% if family %}
+        <li class="family-call"><strong>{{ t('family_call', name=family.name, phone=family.phone) }}</strong></li>
+      {% endif %}
       {% for a in r.actions %}<li>{{ a }}</li>{% endfor %}
+      {% if family and family.bank_phone %}
+        <li>{{ t('family_bank_call', bank=family.bank or 'Bank', phone=family.bank_phone) }}</li>
+      {% endif %}
       {% if r.level != 'none' %}
         <li>{{ t('report_1930') }}</li>
         <li>{{ t('report_chakshu') }}</li>
@@ -58,6 +64,7 @@
     <h2 id="general">{{ t('tips') }}</h2>
     <ul class="actions">
       {% for f in r.tips %}<li><strong>{{ f.title }}.</strong> {{ f.why }}</li>{% endfor %}
+      {% if family %}<li><strong>{{ t('family_unsure', name=family.name, phone=family.phone) }}</strong></li>{% endif %}
       <li>{{ t('general_1') }}</li>
       <li>{{ t('general_2') }}</li>
       <li>{{ t('general_3') }}</li>

@@ -36,7 +36,7 @@ def test_privacy_and_security_headers(client):
     assert r.headers["cache-control"] == "no-store"
     assert "default-src 'none'" in r.headers["content-security-policy"]
     assert "script-src" not in r.headers["content-security-policy"]
-    assert r.headers["referrer-policy"] == "no-referrer"
+    assert r.headers["referrer-policy"] == "same-origin"
     assert "<script" not in r.text
 
 

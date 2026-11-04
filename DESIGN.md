@@ -44,6 +44,14 @@ The hand-written holdout set was written and committed before the rules were tun
 * **Not an emergency service.** Kedayam points to 1930, cybercrime.gov.in and the bank. It does not report anything itself and does not replace them.
 * **Synthetic demo data only.** All phone numbers, UPI IDs and links in examples and tests are made up.
 
+## Family mode
+
+The second user is the son or daughter who wants their parent to be able to check alone. Family mode lets them set up, once, on the parent's computer: the parent's language, their own name and number, and optionally the bank helpline from the card. Warnings then begin with "Call Ravi on ... before you do anything", the "no known pattern" page says "If you are unsure, call Ravi", and a printable reminder card puts the same advice next to the phone.
+
+Choices: it stays local (a small JSON file with owner-only permissions, never sent anywhere); it stores only what the reminder needs (no parent details, no account numbers); and it can be removed with one button. Because the family number is shown as the trusted number to call, it must not be changeable by a malicious web page: the server refuses requests for any host other than 127.0.0.1 or localhost (against DNS rebinding) and refuses form posts whose Origin is another site. The referrer policy is `same-origin`, because with `no-referrer` Chrome sends `Origin: null` on Kedayam's own forms; this was found by testing in a real browser.
+
+It does not add a phone "share to Kedayam" button: that needs a service worker, HTTPS and JavaScript, and would mean exposing the server beyond this computer. That is a possible next step, not part of this prototype.
+
 ## Limits
 
 * Pattern rules catch known tricks. A new script written to avoid these phrases can pass as "no known scam pattern found".

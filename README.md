@@ -50,6 +50,16 @@ Try these fictional messages:
 
 Sample screenshots to upload are in `tests/fixtures/screenshots/`.
 
+### Family mode (optional)
+
+A son, daughter or carer can open "Family setup" from the footer (http://127.0.0.1:8740/family) on the parent's computer and enter the parent's language, their own name and phone number, and optionally the bank's helpline from the back of the card. After that:
+
+* Kedayam opens in the parent's language.
+* Every warning starts with "Call Ravi on +91 70000 11111 before you do anything", and lists the bank helpline.
+* "Print a reminder card" gives a one page card with the key rules and the numbers, to keep near the phone.
+
+This is saved only in `instance/family.json` on that computer (owner-only file permissions, git-ignored; set `KEDAYAM_DATA_DIR` to keep it elsewhere). "Remove family setup" deletes it.
+
 ## Test and evaluate
 
 ```sh
@@ -80,6 +90,7 @@ To retrain the wording model by hand: `uv run kedayam-train`.
 * `src/kedayam/classifier.py`: TF-IDF and logistic regression on the public dataset. Shown as a hint for English text only; it does not change the result.
 * `src/kedayam/ocr.py`: screenshot reading with Tesseract (English, Tamil and Hindi together). The image is decoded and passed to Tesseract in memory, never written to disk.
 * `src/kedayam/app.py` and `templates/`: FastAPI with server-rendered HTML and one stylesheet. No JavaScript.
+* `src/kedayam/family.py`: family mode storage and validation.
 * `src/kedayam/i18n.py`: all text in English, Tamil and Hindi.
 
 ## Privacy and safety choices
@@ -88,6 +99,7 @@ To retrain the wording model by hand: `uv run kedayam-train`.
 * Pages send `Cache-Control: no-store` and a Content Security Policy that blocks all scripts and outside resources.
 * Links in a checked message are shown defanged (`hxxp://sbi-kyc[.]online`) so they cannot be tapped from Kedayam.
 * Every result has an "I think this result is wrong" section that explains how to verify independently.
+* Kedayam refuses requests addressed to any host name other than 127.0.0.1 or localhost, and refuses form posts from other websites, so a web page you visit cannot quietly change the family contact number.
 * All example messages, phone numbers and UPI IDs are made up.
 
 ## Credits and data

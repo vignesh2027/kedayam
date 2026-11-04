@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Kedayam · {{ t('card_title') }}{% endblock %}
+{% block main %}
+  <section class="reminder-card" aria-labelledby="card-title">
+    <div class="reminder-head">
+      <img src="/static/logo.svg" alt="" width="72" height="72">
+      <h1 id="card-title">{{ t('card_title') }}</h1>
+    </div>
+    <ol>
+      <li>{{ t('card_1') }}</li>
+      <li>{{ t('card_2') }}</li>
+      <li>{{ t('card_3') }}</li>
+      {% if family %}<li><strong>{{ t('card_call', name=family.name, phone=family.phone) }}</strong></li>{% endif %}
+      {% if family and family.bank_phone %}<li>{{ t('family_bank_call', bank=family.bank or 'Bank', phone=family.bank_phone) }}</li>{% endif %}
+      <li class="danger-text"><strong>{{ t('card_5') }}</strong></li>
+    </ol>
+  </section>
+{% endblock %}

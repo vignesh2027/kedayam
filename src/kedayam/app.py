@@ -12,12 +12,13 @@ from pathlib import Path
 
 from fastapi import FastAPI, Form, Request
 from fastapi.concurrency import run_in_threadpool
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.formparsers import MultiPartParser
 
 from . import classifier as clf
+from . import family as fam
 from . import ocr
 from .engine import MAX_CHARS, Result, analyse
 from .i18n import ABOUT, ACTION_TEXT, LANG_NAMES, LANGS, RULE_TEXT, SOURCE_LINKS, lang_or_default, t
@@ -47,12 +48,37 @@ app = FastAPI(title="Kedayam", docs_url=None, redoc_url=None, openapi_url=None, 
 app.mount("/static", StaticFiles(directory=HERE / "static"), name="static")
 
 
+# Kedayam only ever runs on this computer. Refusing other Host names blocks
+# DNS rebinding, and refusing cross-site form posts stops a web page you visit
+# from silently changing the family contact number.
+ALLOWED_HOSTS = {"127.0.0.1", "localhost", "testserver"}
+
+
+def _host_only(value: str) -> str:
+    value = value.strip().lower()
+    if value.startswith("["):
+        return value.split("]")[0] + "]"
+    return value.rsplit(":", 1)[0] if value.count(":") == 1 else value
+
+
 @app.middleware("http")
 async def security_headers(request: Request, call_next):
+    host = request.headers.get("host", "")
+    if _host_only(host) not in ALLOWED_HOSTS:
+        return PlainTextResponse("Kedayam only accepts requests from this computer.", status_code=400)
+    if request.method == "POST":
+        origin = request.headers.get("origin")
+        if origin is not None:
+            origin_host = origin.split("://", 1)[-1]
+            if origin == "null" or origin_host.lower() != host.lower():
+                return PlainTextResponse("Form posts from other websites are not accepted.", status_code=403)
     response = await call_next(request)
     response.headers["Content-Security-Policy"] = CSP
     response.headers["Cache-Control"] = "no-store"
-    response.headers["Referrer-Policy"] = "no-referrer"
+    # same-origin, not no-referrer: with no-referrer Chrome sends "Origin: null"
+    # on our own form posts, which the cross-site check above would refuse.
+    # Other sites still receive no referrer.
+    response.headers["Referrer-Policy"] = "same-origin"
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
     return response
@@ -68,7 +94,9 @@ def base_context(request: Request, lang: str, **extra) -> dict:
         "t": lambda key, **kw: t(lang, key, **kw),
         "max_chars": MAX_CHARS,
         "ocr_ready": ocr.available(),
+        "family": fam.load(),
     }
+    ctx["family_form"] = dict(vars(ctx["family"])) if ctx["family"] else {}
     ctx.update(extra)
     return ctx
 
@@ -100,8 +128,16 @@ def present(result: Result, lang: str) -> dict:
     }
 
 
+def default_lang(lang: str | None) -> str:
+    if lang:
+        return lang_or_default(lang)
+    f = fam.load()
+    return f.lang if f else "en"
+
+
 @app.get("/", response_class=HTMLResponse)
-async def home(request: Request, lang: str = "en"):
+async def home(request: Request, lang: str | None = None):
+    lang = default_lang(lang)
     return templates.TemplateResponse(request, "index.html", base_context(request, lang))
 
 
@@ -160,8 +196,48 @@ async def check_image(request: Request):
     )
 
 
+@app.get("/family", response_class=HTMLResponse)
+async def family_page(request: Request, lang: str | None = None, msg: str | None = None):
+    lang = default_lang(lang)
+    note = t(lang, msg) if msg in ("family_saved", "family_removed") else None
+    return templates.TemplateResponse(request, "family.html", base_context(request, lang, note=note))
+
+
+@app.post("/family", response_class=HTMLResponse)
+async def family_save(
+    request: Request,
+    lang: str = Form("en"),
+    parent_lang: str = Form("en"),
+    name: str = Form(""),
+    phone: str = Form(""),
+    bank: str = Form(""),
+    bank_phone: str = Form(""),
+):
+    lang = lang_or_default(lang)
+    f = fam.validate(parent_lang, name, phone, bank, bank_phone)
+    if f is None:
+        ctx = base_context(request, lang, error=t(lang, "family_invalid"))
+        ctx["form"] = {"parent_lang": parent_lang, "name": name, "phone": phone, "bank": bank, "bank_phone": bank_phone}
+        return templates.TemplateResponse(request, "family.html", ctx, status_code=400)
+    fam.save(f)
+    return RedirectResponse(f"/family?lang={f.lang}&msg=family_saved", status_code=303)
+
+
+@app.post("/family/remove")
+async def family_remove(request: Request, lang: str = Form("en")):
+    fam.clear()
+    return RedirectResponse(f"/family?lang={lang_or_default(lang)}&msg=family_removed", status_code=303)
+
+
+@app.get("/family/card", response_class=HTMLResponse)
+async def family_card(request: Request, lang: str | None = None):
+    lang = default_lang(lang)
+    return templates.TemplateResponse(request, "card.html", base_context(request, lang))
+
+
 @app.get("/about", response_class=HTMLResponse)
-async def about(request: Request, lang: str = "en"):
+async def about(request: Request, lang: str | None = None):
+    lang = default_lang(lang)
     meta_path = clf.META_PATH
     meta = None
     if meta_path.exists():

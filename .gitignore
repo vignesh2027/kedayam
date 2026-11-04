@@ -7,3 +7,4 @@ models/
 *.egg-info/
 .DS_Store
 vendor/
+instance/

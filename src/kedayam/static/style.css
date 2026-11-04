@@ -71,7 +71,7 @@ h1, h2, h3 { line-height: 1.3; margin: 0 0 .5rem; }
 }
 .big-label { display: block; font-size: 1.35rem; font-weight: 700; }
 .small-label { display: block; font-size: 1.1rem; font-weight: 700; margin-top: 1.25rem; }
-textarea, input[type=text] {
+textarea, input[type=text], input[type=tel] {
   width: 100%; font: inherit; color: var(--text); background: #fff;
   border: 2px solid #7D8FAD; border-radius: 10px; padding: .75rem;
 }
@@ -141,6 +141,30 @@ input[type=file]::file-selector-button {
 /* Footer */
 .foot { border-top: 1px solid var(--border); background: var(--surface); margin-top: 2rem; padding: 1rem 0 1.5rem; color: var(--muted); font-size: .95rem; }
 .helpline { color: var(--danger); font-size: 1.1rem; }
+
+/* Family mode */
+.ok { background: #EEF9F1; color: #14532D; border: 2px solid #166534; border-radius: 10px; padding: .75rem 1rem; font-weight: 700; }
+.choices { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.choices legend { margin-bottom: .5rem; }
+.choice {
+  display: inline-flex; align-items: center; gap: .5rem; min-height: 52px; padding: 0 1rem;
+  border: 2px solid var(--border); border-radius: 12px; font-weight: 700; cursor: pointer; background: var(--surface);
+}
+.choice input { width: 1.4rem; height: 1.4rem; accent-color: var(--accent); }
+.choice:has(input:checked) { border-color: var(--accent); background: #F3EEFF; }
+.plain { background: none; color: var(--danger); text-decoration: underline; padding: 0; min-height: 3rem; margin-top: .5rem; font-size: 1rem; }
+.family-call { color: var(--accent); }
+.reminder-card { background: var(--surface); border: 4px solid var(--accent); border-radius: 18px; padding: 1.5rem; margin: 1.5rem 0; font-size: 1.3rem; }
+.reminder-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+.reminder-head h1 { font-size: 1.6rem; color: var(--accent); margin: 0; }
+.reminder-card li { margin: 0 0 .8rem; }
+.danger-text { color: var(--danger); }
+
+@media print {
+  .top, .foot, .skip { display: none; }
+  body { background: #fff; }
+  .reminder-card { border-width: 3px; margin: 0; }
+}
 
 @media (max-width: 480px) {
   html { font-size: 112.5%; }

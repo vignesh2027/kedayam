@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Kedayam · {{ t('family_title') }}{% endblock %}
+{% block main %}
+  <h1 class="lead">{{ t('family_title') }}</h1>
+  <p class="privacy"><img src="/static/lock.svg" alt="" width="28" height="28"> {{ t('family_intro') }}</p>
+
+  {% if note %}<p class="ok" role="status">{{ note }}</p>{% endif %}
+  {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+
+  {% set f = form if form is defined else family_form %}
+  <form class="card" method="post" action="/family">
+    <input type="hidden" name="lang" value="{{ lang }}">
+    <fieldset class="choices">
+      <legend class="small-label">{{ t('family_lang') }}</legend>
+      {% for code in langs %}
+        <label class="choice" lang="{{ code }}">
+          <input type="radio" name="parent_lang" value="{{ code }}" {% if (f.get('parent_lang') or f.get('lang') or lang) == code %}checked{% endif %}>
+          {{ lang_names[code] }}
+        </label>
+      {% endfor %}
+    </fieldset>
+
+    <label for="name" class="small-label">{{ t('family_name') }}</label>
+    <p id="name-hint" class="hint">{{ t('family_name_hint') }}</p>
+    <input id="name" name="name" type="text" maxlength="40" required autocomplete="off" aria-describedby="name-hint" value="{{ f.get('name', '') }}">
+
+    <label for="phone" class="small-label">{{ t('family_phone') }}</label>
+    <input id="phone" name="phone" type="tel" maxlength="20" required autocomplete="off" inputmode="tel" value="{{ f.get('phone', '') }}">
+
+    <label for="bank" class="small-label">{{ t('family_bank') }}</label>
+    <input id="bank" name="bank" type="text" maxlength="40" autocomplete="off" value="{{ f.get('bank', '') }}">
+
+    <label for="bank_phone" class="small-label">{{ t('family_bank_phone') }}</label>
+    <input id="bank_phone" name="bank_phone" type="tel" maxlength="20" autocomplete="off" inputmode="tel" value="{{ f.get('bank_phone', '') }}">
+
+    <button type="submit" class="primary">{{ t('family_save') }}</button>
+  </form>
+
+  {% if family %}
+  <p><a class="button secondary" href="/family/card?lang={{ family.lang }}">{{ t('family_card') }}</a></p>
+  <form method="post" action="/family/remove">
+    <input type="hidden" name="lang" value="{{ lang }}">
+    <button type="submit" class="plain">{{ t('family_remove') }}</button>
+  </form>
+  {% endif %}
+{% endblock %}
