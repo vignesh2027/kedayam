@@ -23,6 +23,7 @@ from .engine import analyse
 
 ROOT = Path(__file__).resolve().parents[2]
 HOLDOUT = ROOT / "data" / "handwritten" / "holdout.jsonl"
+BLIND = ROOT / "data" / "blind" / "blind_news_2026.jsonl"
 OUT_DIR = ROOT / "eval"
 
 
@@ -118,6 +119,15 @@ def main() -> None:
         results["dataset_test"][f"rules_recall_{sub}"] = {"flagged": flagged, "total": len(part)}
 
     results["ocr"] = evaluate_ocr()
+
+    blind_rows = [json.loads(line) for line in BLIND.read_text(encoding="utf-8").splitlines() if line.strip()]
+    blind = [(r["text"], r.get("sender", ""), 1 if r["label"] == "scam" else 0) for r in blind_rows]
+    results["blind"] = {"rules": score_set(blind, "rules"), "items": []}
+    for r in blind_rows:
+        res = analyse(r["text"], r.get("sender", ""), use_classifier=False)
+        results["blind"]["items"].append(
+            {"id": r["id"], "label": r["label"], "lang": r["lang"], "source": r["source"], "level": res.level, "rules": [f.id for f in res.findings]}
+        )
 
     (OUT_DIR / "results.json").write_text(json.dumps(results, indent=2) + "\n")
     (OUT_DIR / "holdout_predictions.jsonl").write_text("\n".join(json.dumps(d, ensure_ascii=False) for d in detail) + "\n", encoding="utf-8")
@@ -221,8 +231,28 @@ def write_markdown(results: dict, detail: list[dict]) -> None:
         "On the hand-written Indian set it raised false alarms on ordinary bank and service messages, which is why it "
         "does not decide the result. See eval/HISTORY.md.",
     ]
+    b = results["blind"]
+    lines += [
+        "",
+        "## 3. Synthetic set written from news reports (20 messages: 14 scam, 6 legitimate)",
+        "",
+        "Written from news reports of scam types the rules were not designed around (wedding invitation and e-challan APKs, "
+        "'reply NO' fake debit alerts, festival greeting links, WhatsApp stock groups, FASTag KYC, event refund phishing, "
+        "WhatsApp code hijacking, voice clone follow-ups). Committed after the rules were frozen and before the first run; "
+        "the rules were not changed afterwards. Same author as the rules, so not fully independent. See data/blind/SOURCES.md.",
+        "",
+        head,
+        _row("Kedayam (rules decide)", b["rules"]),
+        "",
+        "| Message | Label | Language | Based on | Result | Rules that fired |",
+        "| --- | --- | --- | --- | --- | --- |",
+    ]
+    lines += [
+        f"| {i['id']} | {i['label']} | {i['lang']} | {i['source'] or '-'} | {i['level']} | {', '.join(i['rules']) or 'none'} |"
+        for i in b["items"]
+    ]
     o = results["ocr"]
-    lines += ["", "## 3. Screenshot reading (synthetic phone screenshots)", ""]
+    lines += ["", "## 4. Screenshot reading (synthetic phone screenshots)", ""]
     if not o["available"]:
         lines.append("Tesseract or its language data was not installed when this was generated, so this section was skipped.")
     else:

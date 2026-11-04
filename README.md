@@ -65,6 +65,7 @@ uv run kedayam-eval
 | --- | --- | --- | --- | --- |
 | Hand-written holdout | 45 scam and 35 normal messages in English, Tamil, Hindi and mixed script, based on RBI, NPCI, I4C and DoT advisories | 1.000 | 1.000 | 0 of 35 |
 | Public dataset test split | 876 messages from the Mishra and Soni SMS phishing dataset; rules were tuned only on its train and validation splits | 1.000 | 0.333 (smishing 49 of 92, marketing spam 1 of 58) | 0 of 726 |
+| News-based synthetic set | 14 scam and 6 normal messages written from news reports of newer scam types after the rules were frozen, committed before the first run | 1.000 | 0.714 | 0 of 6 |
 
 Screenshots: on 10 synthetic phone screenshots (English, Tamil, Hindi; light and dark; 3 made to look like a tilted, blurred phone photo), the result from the screenshot matched the result from typing the text in 10 of 10, with 0.88 to 1.00 of the words read correctly. These are rendered images, not real photos.
 

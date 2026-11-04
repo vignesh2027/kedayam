@@ -194,5 +194,207 @@
         "ocr_level": "danger"
       }
     ]
+  },
+  "blind": {
+    "rules": {
+      "precision": 1.0,
+      "recall": 0.714,
+      "tp": 10,
+      "fp": 0,
+      "fn": 4,
+      "tn": 6,
+      "false_alarm_rate": 0.0,
+      "warning_recall": 0.357,
+      "warning_false_alarms": 0
+    },
+    "items": [
+      {
+        "id": "B01",
+        "label": "scam",
+        "lang": "en",
+        "source": "NEWS-WEDDING-APK",
+        "level": "danger",
+        "rules": [
+          "apk_link"
+        ]
+      },
+      {
+        "id": "B02",
+        "label": "scam",
+        "lang": "ta",
+        "source": "NEWS-WEDDING-APK",
+        "level": "danger",
+        "rules": [
+          "apk_link"
+        ]
+      },
+      {
+        "id": "B03",
+        "label": "scam",
+        "lang": "en",
+        "source": "NEWS-ECHALLAN",
+        "level": "danger",
+        "rules": [
+          "apk_link"
+        ]
+      },
+      {
+        "id": "B04",
+        "label": "scam",
+        "lang": "hi",
+        "source": "NEWS-ECHALLAN",
+        "level": "caution",
+        "rules": [
+          "suspicious_link"
+        ]
+      },
+      {
+        "id": "B05",
+        "label": "scam",
+        "lang": "en",
+        "source": "NEWS-REPLY-NO",
+        "level": "caution",
+        "rules": [
+          "sender_is_mobile_number",
+          "urgency"
+        ]
+      },
+      {
+        "id": "B06",
+        "label": "scam",
+        "lang": "en",
+        "source": "NEWS-GREETING-APK",
+        "level": "danger",
+        "rules": [
+          "apk_link"
+        ]
+      },
+      {
+        "id": "B07",
+        "label": "scam",
+        "lang": "en",
+        "source": "NEWS-GREETING-APK",
+        "level": "caution",
+        "rules": [
+          "suspicious_link"
+        ]
+      },
+      {
+        "id": "B08",
+        "label": "scam",
+        "lang": "en",
+        "source": "NEWS-STOCK-GROUP",
+        "level": "none",
+        "rules": []
+      },
+      {
+        "id": "B09",
+        "label": "scam",
+        "lang": "hinglish",
+        "source": "NEWS-STOCK-GROUP",
+        "level": "none",
+        "rules": [
+          "call_this_number"
+        ]
+      },
+      {
+        "id": "B10",
+        "label": "scam",
+        "lang": "en",
+        "source": "NEWS-FASTAG",
+        "level": "danger",
+        "rules": [
+          "lookalike_link",
+          "account_block_threat",
+          "urgency"
+        ]
+      },
+      {
+        "id": "B11",
+        "label": "scam",
+        "lang": "en",
+        "source": "NEWS-EVENT-REFUND",
+        "level": "caution",
+        "rules": [
+          "reward_link"
+        ]
+      },
+      {
+        "id": "B12",
+        "label": "scam",
+        "lang": "en",
+        "source": "NEWS-WA-HIJACK",
+        "level": "none",
+        "rules": [
+          "urgency"
+        ]
+      },
+      {
+        "id": "B13",
+        "label": "scam",
+        "lang": "en",
+        "source": "NEWS-VOICE-CLONE",
+        "level": "caution",
+        "rules": [
+          "family_money_request"
+        ]
+      },
+      {
+        "id": "B14",
+        "label": "scam",
+        "lang": "en",
+        "source": "RBI-BEAWARE",
+        "level": "none",
+        "rules": []
+      },
+      {
+        "id": "L01",
+        "label": "legit",
+        "lang": "en",
+        "source": "",
+        "level": "none",
+        "rules": []
+      },
+      {
+        "id": "L02",
+        "label": "legit",
+        "lang": "en",
+        "source": "",
+        "level": "none",
+        "rules": []
+      },
+      {
+        "id": "L03",
+        "label": "legit",
+        "lang": "en",
+        "source": "",
+        "level": "none",
+        "rules": []
+      },
+      {
+        "id": "L04",
+        "label": "legit",
+        "lang": "en",
+        "source": "",
+        "level": "none",
+        "rules": []
+      },
+      {
+        "id": "L05",
+        "label": "legit",
+        "lang": "hi",
+        "source": "",
+        "level": "none",
+        "rules": []
+      },
+      {
+        "id": "L06",
+        "label": "legit",
+        "lang": "en",
+        "source": "",
+        "level": "none",
+        "rules": []
+      }
+    ]
   }
 }

@@ -51,6 +51,7 @@ The hand-written holdout set was written and committed before the rules were tun
 * Tamil and Hindi keyword coverage is smaller than English, and mixed-script messages (Tanglish, Hinglish) are only partly covered.
 * OCR on low-quality screenshots can misread text, so the extracted text is always shown with the result, in a box the user can correct and check again. On a tilted, blurred test image a link came out as "nttp://sbi-kyc-. update.xyz", so link checks are weaker on screenshots than on pasted text. If very little text was read, the result page says so.
 * The "Choose file" button text comes from the browser, so it follows the phone's language rather than the language picked in Kedayam.
+* Known gaps from the news-based test set: WhatsApp "stock tip" investment groups, "please forward the code I sent you by mistake" WhatsApp hijack messages, and "bonus" payouts released after paying a fee are not caught yet.
 * Kedayam cannot check whether a UPI ID, phone number or link belongs to a real bank. It only checks for impersonation patterns.
 * The Tamil and Hindi wording should be reviewed by native speakers who work with older adults.
 

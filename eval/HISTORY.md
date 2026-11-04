@@ -70,3 +70,13 @@ Test split, run once after tuning:
 | Precision | 1.000 | 1.000 |
 
 Most of the new catches are "Be careful" rather than "Warning" (Warning-only recall on the test split stays at 0.020), which matches the intent: these patterns are warning signs, not proof. The hand-written holdout is unchanged at 45 of 45 scams flagged and 0 of 35 false alarms, and all 10 screenshots still give the same result as typed text.
+
+## Run 5, 4 November 2026: synthetic set written from news reports
+
+20 messages (14 scam, 6 legitimate) written from news reports of scam types the rules were not designed around, committed (19ab856) after the rules were frozen (db2b4dd) and before the first run. Result, run once:
+
+* 10 of 14 scams flagged (recall 0.714), 5 of them as "Warning" (0.357); 0 of 6 legitimate messages flagged; precision 1.000.
+* Caught: wedding invitation and e-challan APKs (Warning), a FASTag KYC lookalike link (Warning), a Hindi e-challan link, a festival greeting link, an event refund link, a "reply NO" fake debit alert sent from a mobile number, and a voice clone style family money request (all "Be careful").
+* Missed: two WhatsApp stock tip group invitations (English and Hinglish), a "please forward the 6 digit code I sent you by mistake" WhatsApp hijack message, and an insurance "bonus" that is released after paying GST.
+
+These four are recorded as known gaps in DESIGN.md. The rules were not changed in response, so this set stays a fair check of the frozen rules. Fixing these gaps later would turn this set into development data, and a new unseen set would be needed to measure the fix.

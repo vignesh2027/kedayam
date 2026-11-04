@@ -46,7 +46,38 @@ Rules recall by original label: smishing 49 / 92, marketing spam 1 / 58.
 
 The classifier scores well here because this split comes from the same source as its training data. On the hand-written Indian set it raised false alarms on ordinary bank and service messages, which is why it does not decide the result. See eval/HISTORY.md.
 
-## 3. Screenshot reading (synthetic phone screenshots)
+## 3. Synthetic set written from news reports (20 messages: 14 scam, 6 legitimate)
+
+Written from news reports of scam types the rules were not designed around (wedding invitation and e-challan APKs, 'reply NO' fake debit alerts, festival greeting links, WhatsApp stock groups, FASTag KYC, event refund phishing, WhatsApp code hijacking, voice clone follow-ups). Committed after the rules were frozen and before the first run; the rules were not changed afterwards. Same author as the rules, so not fully independent. See data/blind/SOURCES.md.
+
+| System | Precision | Recall (flagged) | Recall (Warning only) | False alarm rate | TP | FP | FN | TN |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Kedayam (rules decide) | 1.000 | 0.714 | 0.357 | 0.000 | 10 | 0 | 4 | 6 |
+
+| Message | Label | Language | Based on | Result | Rules that fired |
+| --- | --- | --- | --- | --- | --- |
+| B01 | scam | en | NEWS-WEDDING-APK | danger | apk_link |
+| B02 | scam | ta | NEWS-WEDDING-APK | danger | apk_link |
+| B03 | scam | en | NEWS-ECHALLAN | danger | apk_link |
+| B04 | scam | hi | NEWS-ECHALLAN | caution | suspicious_link |
+| B05 | scam | en | NEWS-REPLY-NO | caution | sender_is_mobile_number, urgency |
+| B06 | scam | en | NEWS-GREETING-APK | danger | apk_link |
+| B07 | scam | en | NEWS-GREETING-APK | caution | suspicious_link |
+| B08 | scam | en | NEWS-STOCK-GROUP | none | none |
+| B09 | scam | hinglish | NEWS-STOCK-GROUP | none | call_this_number |
+| B10 | scam | en | NEWS-FASTAG | danger | lookalike_link, account_block_threat, urgency |
+| B11 | scam | en | NEWS-EVENT-REFUND | caution | reward_link |
+| B12 | scam | en | NEWS-WA-HIJACK | none | urgency |
+| B13 | scam | en | NEWS-VOICE-CLONE | caution | family_money_request |
+| B14 | scam | en | RBI-BEAWARE | none | none |
+| L01 | legit | en | - | none | none |
+| L02 | legit | en | - | none | none |
+| L03 | legit | en | - | none | none |
+| L04 | legit | en | - | none | none |
+| L05 | legit | hi | - | none | none |
+| L06 | legit | en | - | none | none |
+
+## 4. Screenshot reading (synthetic phone screenshots)
 
 10 screenshots in tests/fixtures/screenshots, rendered from the HTML files next to them. Seven are clean renders; three are the same renders made to look like a phone photo of a screen (tilted, blurred, noisy, small JPEG). None is a real photo, so this checks the pipeline and some robustness, not every real-world picture. Word recall is the share of words in the original message found in the OCR text.
 
