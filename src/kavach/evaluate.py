@@ -117,10 +117,45 @@ def main() -> None:
         flagged = sum(1 for t, _, _ in part if analyse(t, use_classifier=False).level != "none")
         results["dataset_test"][f"rules_recall_{sub}"] = {"flagged": flagged, "total": len(part)}
 
+    results["ocr"] = evaluate_ocr()
+
     (OUT_DIR / "results.json").write_text(json.dumps(results, indent=2) + "\n")
     (OUT_DIR / "holdout_predictions.jsonl").write_text("\n".join(json.dumps(d, ensure_ascii=False) for d in detail) + "\n", encoding="utf-8")
     write_markdown(results, detail)
     print((OUT_DIR / "RESULTS.md").read_text())
+
+
+def evaluate_ocr() -> dict:
+    """Read each synthetic screenshot and compare with the typed text."""
+    import re
+
+    from . import ocr
+
+    fix = ROOT / "tests" / "fixtures" / "screenshots"
+    manifest = json.loads((fix / "manifest.json").read_text(encoding="utf-8"))
+    if not ocr.available():
+        return {"available": False, "items": []}
+
+    def words(t: str) -> list[str]:
+        return [w for w in re.split(r"[\s,.!?।:]+", t.lower()) if w]
+
+    items = []
+    for m in manifest:
+        read = ocr.read_image((fix / m["file"]).read_bytes())
+        truth = words(m["text"])
+        got = set(words(read.text))
+        level = analyse(read.text).level if not read.error else "error"
+        items.append(
+            {
+                "id": m["id"],
+                "lang": m["lang"],
+                "label": m["label"],
+                "word_recall": round(sum(1 for w in truth if w in got) / len(truth), 3),
+                "typed_level": m["expected_level"],
+                "ocr_level": level,
+            }
+        )
+    return {"available": True, "items": items}
 
 
 def _row(name: str, m: dict) -> str:
@@ -186,6 +221,27 @@ def write_markdown(results: dict, detail: list[dict]) -> None:
         "On the hand-written Indian set it raised false alarms on ordinary bank and service messages, which is why it "
         "does not decide the result. See eval/HISTORY.md.",
     ]
+    o = results["ocr"]
+    lines += ["", "## 3. Screenshot reading (synthetic phone screenshots)", ""]
+    if not o["available"]:
+        lines.append("Tesseract or its language data was not installed when this was generated, so this section was skipped.")
+    else:
+        same = sum(1 for i in o["items"] if i["ocr_level"] == i["typed_level"])
+        lines += [
+            f"{len(o['items'])} screenshots in tests/fixtures/screenshots, rendered from the HTML files next to them. "
+            "Seven are clean renders; three are the same renders made to look like a phone photo of a screen (tilted, blurred, noisy, "
+            "small JPEG). None is a real photo, so this checks the pipeline and some robustness, not every real-world picture. "
+            "Word recall is the share of words in the original message found in the OCR text.",
+            "",
+            f"Same result as typing the text: {same} of {len(o['items'])}.",
+            "",
+            "| Screenshot | Language | Label | Word recall | Result from typed text | Result from screenshot |",
+            "| --- | --- | --- | --- | --- | --- |",
+        ]
+        lines += [
+            f"| {i['id']} | {i['lang']} | {i['label']} | {i['word_recall']:.3f} | {i['typed_level']} | {i['ocr_level']} |"
+            for i in o["items"]
+        ]
     (OUT_DIR / "RESULTS.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 

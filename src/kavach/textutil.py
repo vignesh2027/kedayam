@@ -12,9 +12,10 @@ import re
 import unicodedata
 from dataclasses import dataclass, field
 
-# Invisible characters scammers insert to break up keywords. ZWJ and ZWNJ
-# (U+200C, U+200D) are kept because they are meaningful in Indic text.
-_INVISIBLE = dict.fromkeys(map(ord, "​⁠﻿­"), None)
+# Invisible characters scammers insert to break up keywords. ZWNJ and ZWJ
+# (U+200C, U+200D) are removed too: in Tamil and Devanagari they only change
+# how a word is drawn, and OCR inserts them inside Tamil words.
+_INVISIBLE = dict.fromkeys(map(ord, "\u200b\u200c\u200d\u2060\ufeff\u00ad"), None)
 
 # Common digit-for-letter swaps used in lookalike names (netf1ix, amaz0n).
 _LEET = str.maketrans({"0": "o", "1": "l", "3": "e", "4": "a", "5": "s", "7": "t", "@": "a", "$": "s"})

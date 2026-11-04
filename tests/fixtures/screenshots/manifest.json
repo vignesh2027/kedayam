@@ -1,0 +1,112 @@
+[
+ {
+  "id": "sms_en_refund_pin",
+  "style": "sms",
+  "lang": "en",
+  "sender": "+91 70000 12345",
+  "label": "scam",
+  "text": "Dear customer, you have received a refund of Rs 4,999. To receive the amount please accept the request and enter your UPI PIN.",
+  "file": "sms_en_refund_pin.png",
+  "expected_level": "danger",
+  "min_word_recall": 0.8
+ },
+ {
+  "id": "chat_en_kyc_dark",
+  "style": "chat_dark",
+  "lang": "en",
+  "sender": "Bank Helpdesk",
+  "label": "scam",
+  "text": "Dear SBI user, your KYC has expired. Your account will be blocked today. Update now: http://sbi-kyc-update.xyz/login",
+  "file": "chat_en_kyc_dark.png",
+  "expected_level": "danger",
+  "min_word_recall": 0.8
+ },
+ {
+  "id": "sms_ta_electricity",
+  "style": "sms",
+  "lang": "ta",
+  "sender": "+91 70000 78901",
+  "label": "scam",
+  "text": "அன்புள்ள வாடிக்கையாளரே, உங்கள் மின் இணைப்பு இன்று இரவு 9.30 மணிக்கு துண்டிக்கப்படும். உடனடியாக மின்சார அதிகாரியை தொடர்பு கொள்ளவும் 7000078901",
+  "file": "sms_ta_electricity.png",
+  "expected_level": "danger",
+  "min_word_recall": 0.8
+ },
+ {
+  "id": "sms_hi_lottery",
+  "style": "sms",
+  "lang": "hi",
+  "sender": "+91 70000 23456",
+  "label": "scam",
+  "text": "बधाई हो! आपने 25 लाख रुपये की लॉटरी जीती है। इनाम पाने के लिए 9,999 रुपये प्रोसेसिंग फीस जमा करें।",
+  "file": "sms_hi_lottery.png",
+  "expected_level": "danger",
+  "min_word_recall": 0.8
+ },
+ {
+  "id": "upi_collect_request",
+  "style": "upi",
+  "lang": "en",
+  "sender": "rewards.sbi@ybl",
+  "label": "scam",
+  "text": "Payment request\nFrom rewards.sbi@ybl\nRs 4,999\nNote: Cashback reward. Enter PIN to receive.\nDecline Pay",
+  "file": "upi_collect_request.png",
+  "expected_level": "danger",
+  "min_word_recall": 0.8
+ },
+ {
+  "id": "sms_en_debit_legit",
+  "style": "sms",
+  "lang": "en",
+  "sender": "AX-SBIINB-S",
+  "label": "legit",
+  "text": "Dear Customer, Your A/c X1234 is debited for Rs.500.00 on 03-11-26 by UPI ref 431234567890. Not you? Call 1800 000 1111 to block. -SBI",
+  "file": "sms_en_debit_legit.png",
+  "expected_level": "none",
+  "min_word_recall": 0.8
+ },
+ {
+  "id": "sms_en_refund_pin_lowres",
+  "style": "sms, downscaled to 35% and saved as JPEG quality 30",
+  "lang": "en",
+  "sender": "+91 70000 12345",
+  "label": "scam",
+  "text": "Dear customer, you have received a refund of Rs 4,999. To receive the amount please accept the request and enter your UPI PIN.",
+  "file": "sms_en_refund_pin_lowres.jpg",
+  "expected_level": "danger",
+  "min_word_recall": 0.8
+ },
+ {
+  "id": "sms_ta_electricity_photo",
+  "style": "sms, made to look like a phone photo: rotated 4 degrees, Gaussian blur 1.6, contrast 0.7, 2% noise, 60% size, JPEG quality 55",
+  "lang": "ta",
+  "sender": "+91 70000 78901",
+  "label": "scam",
+  "text": "அன்புள்ள வாடிக்கையாளரே, உங்கள் மின் இணைப்பு இன்று இரவு 9.30 மணிக்கு துண்டிக்கப்படும். உடனடியாக மின்சார அதிகாரியை தொடர்பு கொள்ளவும் 7000078901",
+  "file": "sms_ta_electricity_photo.jpg",
+  "expected_level": "danger",
+  "min_word_recall": 0.5
+ },
+ {
+  "id": "sms_hi_lottery_photo",
+  "style": "sms, made to look like a phone photo: rotated 4 degrees, Gaussian blur 1.6, contrast 0.7, 2% noise, 60% size, JPEG quality 55",
+  "lang": "hi",
+  "sender": "+91 70000 23456",
+  "label": "scam",
+  "text": "बधाई हो! आपने 25 लाख रुपये की लॉटरी जीती है। इनाम पाने के लिए 9,999 रुपये प्रोसेसिंग फीस जमा करें।",
+  "file": "sms_hi_lottery_photo.jpg",
+  "expected_level": "danger",
+  "min_word_recall": 0.5
+ },
+ {
+  "id": "chat_en_kyc_dark_photo",
+  "style": "chat_dark, made to look like a phone photo: rotated 4 degrees, Gaussian blur 1.6, contrast 0.7, 2% noise, 60% size, JPEG quality 55",
+  "lang": "en",
+  "sender": "Bank Helpdesk",
+  "label": "scam",
+  "text": "Dear SBI user, your KYC has expired. Your account will be blocked today. Update now: http://sbi-kyc-update.xyz/login",
+  "file": "chat_en_kyc_dark_photo.jpg",
+  "expected_level": "danger",
+  "min_word_recall": 0.5
+ }
+]

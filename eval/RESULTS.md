@@ -45,3 +45,22 @@ Mishra and Soni (2022) SMS Phishing Dataset, CC BY 4.0, deduplicated, 15% strati
 Rules recall by original label: smishing 27 / 92, marketing spam 0 / 58.
 
 The classifier scores well here because this split comes from the same source as its training data. On the hand-written Indian set it raised false alarms on ordinary bank and service messages, which is why it does not decide the result. See eval/HISTORY.md.
+
+## 3. Screenshot reading (synthetic phone screenshots)
+
+10 screenshots in tests/fixtures/screenshots, rendered from the HTML files next to them. Seven are clean renders; three are the same renders made to look like a phone photo of a screen (tilted, blurred, noisy, small JPEG). None is a real photo, so this checks the pipeline and some robustness, not every real-world picture. Word recall is the share of words in the original message found in the OCR text.
+
+Same result as typing the text: 10 of 10.
+
+| Screenshot | Language | Label | Word recall | Result from typed text | Result from screenshot |
+| --- | --- | --- | --- | --- | --- |
+| sms_en_refund_pin | en | scam | 1.000 | danger | danger |
+| chat_en_kyc_dark | en | scam | 1.000 | danger | danger |
+| sms_ta_electricity | ta | scam | 1.000 | danger | danger |
+| sms_hi_lottery | hi | scam | 0.952 | danger | danger |
+| upi_collect_request | en | scam | 0.882 | danger | danger |
+| sms_en_debit_legit | en | legit | 1.000 | none | none |
+| sms_en_refund_pin_lowres | en | scam | 1.000 | danger | danger |
+| sms_ta_electricity_photo | ta | scam | 0.941 | danger | danger |
+| sms_hi_lottery_photo | hi | scam | 0.905 | danger | danger |
+| chat_en_kyc_dark_photo | en | scam | 0.889 | danger | danger |

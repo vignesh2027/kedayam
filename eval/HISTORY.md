@@ -32,3 +32,11 @@ Results after the change:
 * Public dataset test split, rules only: precision 1.000, recall 0.180, 0 false alarms on 726 legitimate messages. By original label, smishing 27 of 92 flagged, marketing spam 0 of 58.
 
 The dataset test split was not used to choose any rule.
+
+## Run 3, 4 November 2026: screenshot reading
+
+Added Tesseract OCR with the tessdata_fast English, Tamil and Hindi models, all three loaded together. The best models were also tried and gave the same text on these images, so the smaller fast models are used.
+
+Ten synthetic screenshots: seven clean renders (SMS, dark chat, a generic UPI payment request screen, Tamil, Hindi, a legitimate debit alert, and a 35% size JPEG), plus three made to look like a phone photo of a screen. All ten gave the same result as typing the text; word recall was 0.882 to 1.000.
+
+Problems found and fixed while building it: Tesseract puts zero-width joiners inside Tamil words (now removed before matching), links broken across lines came out split (now rejoined), and phone status bar lines ("10:42 4G 72%", or "_ 48 72%" in the photo case) were read as message text (now dropped). Still open: on the blurred photo-like image a link was garbled to "nttp://sbi-kyc-. update.xyz", so link rules can miss on poor pictures.

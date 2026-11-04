@@ -9,6 +9,18 @@
     </div>
   </section>
 
+  {% if ocr_text is defined %}
+  <form class="card ocr" method="post" action="/check" aria-labelledby="ocr-title">
+    <input type="hidden" name="lang" value="{{ lang }}">
+    <h2 id="ocr-title">{{ t('ocr_read') }}</h2>
+    {% if little_text %}<p class="error" role="note">{{ t('ocr_little_text') }}</p>{% endif %}
+    <p id="ocr-hint" class="hint">{{ t('ocr_read_hint') }}</p>
+    <label for="ocr-text" class="visually-hidden">{{ t('ocr_read') }}</label>
+    <textarea id="ocr-text" name="text" rows="6" maxlength="{{ max_chars }}" aria-describedby="ocr-hint" spellcheck="false">{{ ocr_text }}</textarea>
+    <button type="submit" class="secondary">{{ t('ocr_recheck') }}</button>
+  </form>
+  {% endif %}
+
   {% if r.actions %}
   <section class="card" aria-labelledby="todo">
     <h2 id="todo">{{ t('todo') }}</h2>

@@ -11,17 +11,25 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, Form, Request
+from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from starlette.formparsers import MultiPartParser
 
 from . import classifier as clf
+from . import ocr
 from .engine import MAX_CHARS, Result, analyse
 from .i18n import ACTION_TEXT, LANG_NAMES, LANGS, RULE_TEXT, SOURCE_LINKS, lang_or_default, t
 from .textutil import defang
 
 HERE = Path(__file__).resolve().parent
 templates = Jinja2Templates(directory=HERE / "templates")
+
+# Keep uploaded screenshots in memory: Starlette would otherwise move uploads
+# over 1 MB into a temporary file on disk.
+MultiPartParser.spool_max_size = ocr.MAX_BYTES + 1024 * 1024
+UPLOAD_LIMIT = ocr.MAX_BYTES + 64 * 1024
 
 CSP = (
     "default-src 'none'; style-src 'self'; img-src 'self' data:; form-action 'self'; "
@@ -59,6 +67,7 @@ def base_context(request: Request, lang: str, **extra) -> dict:
         "lang_names": LANG_NAMES,
         "t": lambda key, **kw: t(lang, key, **kw),
         "max_chars": MAX_CHARS,
+        "ocr_ready": ocr.available(),
     }
     ctx.update(extra)
     return ctx
@@ -113,6 +122,42 @@ async def check(request: Request, text: str = Form(""), sender: str = Form(""), 
         )
     result = analyse(text, sender[:100])
     return templates.TemplateResponse(request, "result.html", base_context(request, lang, r=present(result, lang)))
+
+
+@app.post("/check-image", response_class=HTMLResponse)
+async def check_image(request: Request):
+    lang = lang_or_default(request.query_params.get("lang"))
+
+    def fail(key: str, status: int = 400):
+        return templates.TemplateResponse(
+            request, "index.html", base_context(request, lang, error=t(lang, key)), status_code=status
+        )
+
+    try:
+        declared = int(request.headers.get("content-length", "0"))
+    except ValueError:
+        declared = 0
+    if declared > UPLOAD_LIMIT:
+        return fail("ocr_too_big", 413)
+    async with request.form(max_files=1, max_fields=3) as form:
+        lang = lang_or_default(str(form.get("lang") or lang))
+        upload = form.get("image")
+        if upload is None or isinstance(upload, str):
+            return fail("ocr_not_image")
+        data = await upload.read(UPLOAD_LIMIT + 1)
+    if len(data) > ocr.MAX_BYTES:
+        return fail("ocr_too_big", 413)
+    read = await run_in_threadpool(ocr.read_image, data)
+    del data
+    if read.error:
+        return fail(read.error, 503 if read.error == "ocr_not_setup" else 400)
+    result = analyse(read.text)
+    little = sum(c.isalpha() for c in read.text) < 40
+    return templates.TemplateResponse(
+        request,
+        "result.html",
+        base_context(request, lang, r=present(result, lang), ocr_text=read.text, little_text=little),
+    )
 
 
 @app.get("/about", response_class=HTMLResponse)

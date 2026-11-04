@@ -21,4 +21,14 @@
 
     <button type="submit" class="primary">{{ t('check') }}</button>
   </form>
+
+  {% if ocr_ready %}
+  <form class="card" method="post" action="/check-image?lang={{ lang }}" enctype="multipart/form-data">
+    <input type="hidden" name="lang" value="{{ lang }}">
+    <label for="image" class="big-label">{{ t('shot_label') }}</label>
+    <p id="image-hint" class="hint">{{ t('shot_hint') }}</p>
+    <input id="image" name="image" type="file" accept="image/png,image/jpeg,image/webp,image/*" required aria-describedby="image-hint">
+    <button type="submit" class="secondary">{{ t('shot_button') }}</button>
+  </form>
+  {% endif %}
 {% endblock %}

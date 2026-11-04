@@ -49,7 +49,8 @@ The hand-written holdout set was written and committed before the rules were tun
 * Pattern rules catch known tricks. A new script written to avoid these phrases can pass as "no known scam pattern found".
 * The classifier is trained on a public dataset that is mostly English. It knows little about Tamil or Hindi wording, so in those languages Kavach relies on the rules.
 * Tamil and Hindi keyword coverage is smaller than English, and mixed-script messages (Tanglish, Hinglish) are only partly covered.
-* OCR on low-quality screenshots can misread text, so the extracted text is always shown to the user before the result.
+* OCR on low-quality screenshots can misread text, so the extracted text is always shown with the result, in a box the user can correct and check again. On a tilted, blurred test image a link came out as "nttp://sbi-kyc-. update.xyz", so link checks are weaker on screenshots than on pasted text. If very little text was read, the result page says so.
+* The "Choose file" button text comes from the browser, so it follows the phone's language rather than the language picked in Kavach.
 * Kavach cannot check whether a UPI ID, phone number or link belongs to a real bank. It only checks for impersonation patterns.
 * The Tamil and Hindi wording should be reviewed by native speakers who work with older adults.
 
@@ -60,4 +61,4 @@ The hand-written holdout set was written and committed before the rules were tun
 * `kavach.engine`: runs the rules and the classifier and decides the verdict.
 * `kavach.classifier`: TF-IDF character n-grams with logistic regression (scikit-learn), trained locally from the dataset in `data/`.
 * `kavach.app`: FastAPI with Jinja2 templates. Server rendered HTML and one CSS file. Almost no JavaScript.
-* `kavach.ocr`: Tesseract with English, Tamil and Hindi language data.
+* `kavach.ocr`: Tesseract with English, Tamil and Hindi language data (tessdata_fast, hashes pinned). Images stay in memory; status bar lines are dropped and links broken across lines are rejoined before the rules run.

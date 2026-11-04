@@ -85,6 +85,16 @@ button, .button {
 }
 .primary { background: var(--primary); color: #fff; width: 100%; }
 .primary:hover { background: var(--primary-dark); }
+.secondary { background: var(--accent); color: #fff; width: 100%; }
+.secondary:hover { background: #3B1677; }
+
+input[type=file] { width: 100%; font: inherit; padding: .5rem 0; }
+input[type=file]::file-selector-button {
+  font: inherit; font-weight: 700; min-height: 3rem; padding: .4rem 1.1rem; margin-right: 1rem;
+  border: 2px solid var(--accent); border-radius: 10px; background: var(--surface); color: var(--accent); cursor: pointer;
+}
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.ocr textarea { min-height: 7rem; }
 
 .error {
   background: var(--danger-bg); color: var(--danger); border: 2px solid var(--danger);

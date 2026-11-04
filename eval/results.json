@@ -109,5 +109,90 @@
       "legit_flagged": 0
     }
   },
-  "classifier_threshold": 0.5
+  "classifier_threshold": 0.5,
+  "ocr": {
+    "available": true,
+    "items": [
+      {
+        "id": "sms_en_refund_pin",
+        "lang": "en",
+        "label": "scam",
+        "word_recall": 1.0,
+        "typed_level": "danger",
+        "ocr_level": "danger"
+      },
+      {
+        "id": "chat_en_kyc_dark",
+        "lang": "en",
+        "label": "scam",
+        "word_recall": 1.0,
+        "typed_level": "danger",
+        "ocr_level": "danger"
+      },
+      {
+        "id": "sms_ta_electricity",
+        "lang": "ta",
+        "label": "scam",
+        "word_recall": 1.0,
+        "typed_level": "danger",
+        "ocr_level": "danger"
+      },
+      {
+        "id": "sms_hi_lottery",
+        "lang": "hi",
+        "label": "scam",
+        "word_recall": 0.952,
+        "typed_level": "danger",
+        "ocr_level": "danger"
+      },
+      {
+        "id": "upi_collect_request",
+        "lang": "en",
+        "label": "scam",
+        "word_recall": 0.882,
+        "typed_level": "danger",
+        "ocr_level": "danger"
+      },
+      {
+        "id": "sms_en_debit_legit",
+        "lang": "en",
+        "label": "legit",
+        "word_recall": 1.0,
+        "typed_level": "none",
+        "ocr_level": "none"
+      },
+      {
+        "id": "sms_en_refund_pin_lowres",
+        "lang": "en",
+        "label": "scam",
+        "word_recall": 1.0,
+        "typed_level": "danger",
+        "ocr_level": "danger"
+      },
+      {
+        "id": "sms_ta_electricity_photo",
+        "lang": "ta",
+        "label": "scam",
+        "word_recall": 0.941,
+        "typed_level": "danger",
+        "ocr_level": "danger"
+      },
+      {
+        "id": "sms_hi_lottery_photo",
+        "lang": "hi",
+        "label": "scam",
+        "word_recall": 0.905,
+        "typed_level": "danger",
+        "ocr_level": "danger"
+      },
+      {
+        "id": "chat_en_kyc_dark_photo",
+        "lang": "en",
+        "label": "scam",
+        "word_recall": 0.889,
+        "typed_level": "danger",
+        "ocr_level": "danger"
+      }
+    ]
+  }
 }

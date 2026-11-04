@@ -25,12 +25,28 @@ Then open http://127.0.0.1:8740 in a browser. The first start trains the small w
 
 If port 8740 is busy, choose another: `KAVACH_PORT=8741 uv run kavach`.
 
+### Screenshot checking (optional)
+
+To check screenshots as well as pasted text, install the Tesseract OCR program and download its English, Tamil and Hindi language data once:
+
+```sh
+brew install tesseract              # macOS
+# sudo apt install tesseract-ocr    # Debian or Ubuntu instead
+uv run kavach-ocr-setup
+```
+
+`kavach-ocr-setup` downloads three files (about 8.5 MB) from the tessdata_fast project into `vendor/tessdata/` with curl and checks each against a pinned SHA-256 hash. Restart `uv run kavach` and an "Or check a screenshot" box appears on the home page. Without this step Kavach still works for pasted text and hides the screenshot box.
+
+After reading a screenshot, Kavach shows the text it read above the result, in a box you can correct and check again.
+
 Try these fictional messages:
 
 * `Dear customer, you have a refund of Rs 4,999 pending. To receive the amount please accept the request and enter your UPI PIN.`
 * `அன்புள்ள வாடிக்கையாளரே, உங்கள் மின் இணைப்பு இன்று இரவு 9.30 மணிக்கு துண்டிக்கப்படும். உடனடியாக மின்சார அதிகாரியை தொடர்பு கொள்ளவும் 7000078901`
 * `आपका SBI खाता KYC अपडेट न होने के कारण आज बंद कर दिया जाएगा। तुरंत इस लिंक पर क्लिक करें: http://sbi-kyc.online`
 * `482913 is your OTP for login. Do not share this OTP with anyone.` (a normal message: no warning, plus a safety tip)
+
+Sample screenshots to upload are in `tests/fixtures/screenshots/`.
 
 ## Test and evaluate
 
@@ -39,7 +55,7 @@ uv run pytest
 uv run kavach-eval
 ```
 
-`pytest` runs a catching case and a non-catching case for every rule, checks that every rule and screen has text in all three languages, and checks the privacy headers, link defanging and HTML escaping.
+`pytest` runs a catching case and a non-catching case for every rule, checks that every rule and screen has text in all three languages, and checks the privacy headers, link defanging, HTML escaping and screenshot uploads. Screenshot tests that need Tesseract are skipped if it is not set up.
 
 `kavach-eval` rewrites [eval/RESULTS.md](eval/RESULTS.md). Current results:
 
@@ -47,6 +63,8 @@ uv run kavach-eval
 | --- | --- | --- | --- | --- |
 | Hand-written holdout | 45 scam and 35 normal messages in English, Tamil, Hindi and mixed script, based on RBI, NPCI, I4C and DoT advisories | 1.000 | 1.000 | 0 of 35 |
 | Public dataset test split | 876 messages from the Mishra and Soni SMS phishing dataset, not used to write rules | 1.000 | 0.180 (smishing 27 of 92, marketing spam 0 of 58) | 0 of 726 |
+
+Screenshots: on 10 synthetic phone screenshots (English, Tamil, Hindi; light and dark; 3 made to look like a tilted, blurred phone photo), the result from the screenshot matched the result from typing the text in 10 of 10, with 0.88 to 1.00 of the words read correctly. These are rendered images, not real photos.
 
 Read these honestly. The holdout set was committed before any rule existed, but the same person wrote both, so a perfect score shows the rules cover the advisory patterns, not real-world accuracy. On the independent public data, Kavach raised no false alarms but caught under a third of the smishing messages. [eval/HISTORY.md](eval/HISTORY.md) records each run, including why the wording model was removed from the decision: it flagged 16 of 35 normal bank and service messages.
 
@@ -57,12 +75,13 @@ To retrain the wording model by hand: `uv run kavach-train`.
 * `src/kavach/rules.py`: 25 readable rules, one per scam pattern, each with a weight and a cited public source. One critical pattern (such as "enter PIN to receive") gives a Warning. Weaker signs (urgency, a threat to block the account, a mobile number to call) add up.
 * `src/kavach/engine.py`: runs the rules and picks one of three results: "Warning: this looks like a scam", "Be careful", or "No known scam pattern found".
 * `src/kavach/classifier.py`: TF-IDF and logistic regression on the public dataset. Shown as a hint for English text only; it does not change the result.
+* `src/kavach/ocr.py`: screenshot reading with Tesseract (English, Tamil and Hindi together). The image is decoded and passed to Tesseract in memory, never written to disk.
 * `src/kavach/app.py` and `templates/`: FastAPI with server-rendered HTML and one stylesheet. No JavaScript.
 * `src/kavach/i18n.py`: all text in English, Tamil and Hindi.
 
 ## Privacy and safety choices
 
-* The server only listens on 127.0.0.1. Messages are processed in memory and are not saved or logged; access logging is off.
+* The server only listens on 127.0.0.1. Messages and screenshots are processed in memory and are not saved or logged; access logging is off. Uploads up to 8 MB are kept in memory (larger ones are refused), so a screenshot is never written to a temporary file.
 * Pages send `Cache-Control: no-store` and a Content Security Policy that blocks all scripts and outside resources.
 * Links in a checked message are shown defanged (`hxxp://sbi-kyc[.]online`) so they cannot be tapped from Kavach.
 * Every result has an "I think this result is wrong" section that explains how to verify independently.
@@ -72,7 +91,9 @@ To retrain the wording model by hand: `uv run kavach-train`.
 
 * SMS Phishing Dataset for Machine Learning and Pattern Recognition, Sandhya Mishra and Devpriya Soni, Mendeley Data, 2022, doi:10.17632/f45bkkt8pr.1, licensed CC BY 4.0. Included unchanged in `data/smishing/`; see [PROVENANCE.md](data/smishing/PROVENANCE.md) for how it is used.
 * Scam patterns and safety advice: RBI BE(A)WARE booklet (2022), NPCI UPI Safety Shield, Ministry of Home Affairs (I4C) on digital arrest scams, DoT Sanchar Saathi Chakshu. Details in [data/handwritten/SOURCES.md](data/handwritten/SOURCES.md).
+* OCR: Tesseract (Apache 2.0) and the tessdata_fast English, Tamil and Hindi models (Apache 2.0), https://github.com/tesseract-ocr. Downloaded at setup, not included in this repository.
 * Libraries: FastAPI, Starlette, Uvicorn, Jinja2, scikit-learn, joblib, Pillow, python-multipart, pytest, httpx.
+* Test screenshots in `tests/fixtures/screenshots/` are synthetic: rendered with headless Chrome from the HTML files beside them. They imitate no real app or brand.
 * Everything else in this repository was written for SafeSpace Hacks between 4 and 22 November 2026.
 
 ## Licence
