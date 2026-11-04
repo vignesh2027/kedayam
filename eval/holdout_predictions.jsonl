@@ -13,11 +13,11 @@
 {"id": "H13", "label": "scam", "lang": "en", "level": "danger", "rules": ["otp_request"], "classifier": 0.836}
 {"id": "H14", "label": "scam", "lang": "en", "level": "danger", "rules": ["qr_to_receive"], "classifier": 0.598}
 {"id": "H15", "label": "scam", "lang": "en", "level": "danger", "rules": ["apk_link", "suspicious_link"], "classifier": 0.925}
-{"id": "H16", "label": "scam", "lang": "en", "level": "danger", "rules": ["secret_details_request", "lookalike_link", "suspicious_link"], "classifier": 0.969}
+{"id": "H16", "label": "scam", "lang": "en", "level": "danger", "rules": ["secret_details_request", "lookalike_link", "suspicious_link", "reward_link"], "classifier": 0.969}
 {"id": "H17", "label": "scam", "lang": "en", "level": "danger", "rules": ["secret_details_request", "suspicious_link", "account_block_threat"], "classifier": 0.983}
 {"id": "H18", "label": "scam", "lang": "en", "level": "caution", "rules": ["account_block_threat", "call_this_number"], "classifier": 0.93}
 {"id": "H19", "label": "scam", "lang": "en", "level": "danger", "rules": ["collect_request_lure", "lookalike_upi_id"], "classifier": 0.919}
-{"id": "H20", "label": "scam", "lang": "en", "level": "danger", "rules": ["lookalike_link", "sender_is_mobile_number", "urgency"], "classifier": 0.632}
+{"id": "H20", "label": "scam", "lang": "en", "level": "danger", "rules": ["lookalike_link", "reward_link", "sender_is_mobile_number", "urgency"], "classifier": 0.632}
 {"id": "H21", "label": "scam", "lang": "hinglish", "level": "danger", "rules": ["utility_disconnection", "urgency", "call_this_number"], "classifier": 0.503}
 {"id": "H22", "label": "scam", "lang": "hi", "level": "danger", "rules": ["utility_disconnection", "urgency", "call_this_number"], "classifier": null}
 {"id": "H23", "label": "scam", "lang": "hi", "level": "danger", "rules": ["advance_fee", "prize_lottery"], "classifier": null}
@@ -37,7 +37,7 @@
 {"id": "H37", "label": "scam", "lang": "en", "level": "danger", "rules": ["advance_fee"], "classifier": 0.858}
 {"id": "H38", "label": "scam", "lang": "en", "level": "danger", "rules": ["advance_fee", "easy_money_job"], "classifier": 0.867}
 {"id": "H39", "label": "scam", "lang": "en", "level": "danger", "rules": ["otp_request"], "classifier": 0.845}
-{"id": "H40", "label": "scam", "lang": "en", "level": "danger", "rules": ["secret_details_request", "lookalike_link"], "classifier": 0.79}
+{"id": "H40", "label": "scam", "lang": "en", "level": "danger", "rules": ["secret_details_request", "lookalike_link", "account_block_threat"], "classifier": 0.79}
 {"id": "H41", "label": "scam", "lang": "en", "level": "danger", "rules": ["pin_to_receive", "collect_request_lure", "lookalike_upi_id"], "classifier": 0.777}
 {"id": "H42", "label": "scam", "lang": "hinglish", "level": "danger", "rules": ["advance_fee", "prize_lottery"], "classifier": 0.217}
 {"id": "H43", "label": "scam", "lang": "en", "level": "caution", "rules": ["family_money_request", "secrecy"], "classifier": 0.31}

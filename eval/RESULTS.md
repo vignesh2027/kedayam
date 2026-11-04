@@ -38,11 +38,11 @@ Mishra and Soni (2022) SMS Phishing Dataset, CC BY 4.0, deduplicated, 15% strati
 
 | System | Precision | Recall (flagged) | Recall (Warning only) | False alarm rate | TP | FP | FN | TN |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Rules only | 1.000 | 0.180 | 0.020 | 0.000 | 27 | 0 | 123 | 726 |
+| Rules only | 1.000 | 0.333 | 0.020 | 0.000 | 50 | 0 | 100 | 726 |
 | Classifier only | 0.973 | 0.967 | 0.000 | 0.006 | 145 | 4 | 5 | 722 |
-| Kedayam as shipped (rules decide) | 1.000 | 0.180 | 0.020 | 0.000 | 27 | 0 | 123 | 726 |
+| Kedayam as shipped (rules decide) | 1.000 | 0.333 | 0.020 | 0.000 | 50 | 0 | 100 | 726 |
 
-Rules recall by original label: smishing 27 / 92, marketing spam 0 / 58.
+Rules recall by original label: smishing 49 / 92, marketing spam 1 / 58.
 
 The classifier scores well here because this split comes from the same source as its training data. On the hand-written Indian set it raised false alarms on ordinary bank and service messages, which is why it does not decide the result. See eval/HISTORY.md.
 

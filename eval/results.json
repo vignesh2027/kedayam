@@ -37,10 +37,10 @@
   "dataset_test": {
     "rules": {
       "precision": 1.0,
-      "recall": 0.18,
-      "tp": 27,
+      "recall": 0.333,
+      "tp": 50,
       "fp": 0,
-      "fn": 123,
+      "fn": 100,
       "tn": 726,
       "false_alarm_rate": 0.0,
       "warning_recall": 0.02,
@@ -59,21 +59,21 @@
     },
     "combined": {
       "precision": 1.0,
-      "recall": 0.18,
-      "tp": 27,
+      "recall": 0.333,
+      "tp": 50,
       "fp": 0,
-      "fn": 123,
+      "fn": 100,
       "tn": 726,
       "false_alarm_rate": 0.0,
       "warning_recall": 0.02,
       "warning_false_alarms": 0
     },
     "rules_recall_smishing": {
-      "flagged": 27,
+      "flagged": 49,
       "total": 92
     },
     "rules_recall_spam": {
-      "flagged": 0,
+      "flagged": 1,
       "total": 58
     }
   },

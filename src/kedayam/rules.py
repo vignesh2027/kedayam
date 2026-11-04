@@ -113,7 +113,6 @@ SECRET_DETAIL = rx(
     r"\b(?:net ?banking |login )?password\b",
     r"\batm pin\b",
     r"\bm-?pin\b",
-    r"\baccount number\b",
     "कार्ड नंबर",
     "सीवीवी",
     "पासवर्ड",
@@ -194,7 +193,7 @@ THREAT = rx(
     r"\bmoney laundering\b",
     r"\bdrugs?\b",
     r"\bmdma\b",
-    r"\bdeactivat\w*\b",
+    r"\bde-?activat\w*\b",
     r"\bsuspend\w*\b",
     "गिरफ्तार",
     "वारंट",
@@ -224,11 +223,11 @@ BLOCK = rx(
     r"\bblock(?:ed)?\b",
     r"\bsuspend\w*\b",
     r"\bclosed?\b",
-    r"\bdeactivat\w*\b",
+    r"\bde-?activat\w*\b",
     r"\bfrozen\b",
     r"\bfreeze\b",
     r"\bon hold\b",
-    r"\bhold (?:your|the) (?:amount|money|account|wallet|balance)\b",
+    r"\bhold (?:your|the) (?:\w+ )?(?:amount|money|account|wallet|balance)\b",
     r"\bband\b",
     "बंद",
     "ब्लॉक",
@@ -280,10 +279,19 @@ UTILITY_PUSH = rx(
     "தொடர்பு",
 )
 PRIZE = rx(
-    r"\byou (?:have )?won\b",
+    r"\b(?:you|u) (?:have |'ve |ve )?won\b(?!')",
+    r"\bclaim\b.{0,40}\b(?:prize|cash|reward|voucher|bonus|winnings)\b",
+    r"\b(?:million|milion|crore)s?\b.{0,30}\b(?:transfer(?:red)? to you|to your account|unclaimed|bequest|inheritance)\b",
     r"\blucky (?:draw|winner|customer)\b",
     r"\blottery\b",
     r"\bjackpot\b",
+    r"\b(?:have |has |u |you )?won (?:a |an |the )?(?:£|rs\.? ?|₹ ?|inr ?|\$|€)[\d,.]+",
+    r"\bwon (?:a |an |the )?(?:[\w£₹$€,.*]+ ){0,4}(?:prize|cash|award|holiday|voucher|reward|gift|car|iphone|bonus|crore|lakh)s?\b",
+    r"\bawait(?:s|ing)? (?:your )?collection\b",
+    r"\b(?:you|u|ur|your mobile(?: no| number)?|your number) (?:have been |has been |are |were |was |is |'ve been |have )?awarded\b",
+    r"\b(?:you are|u are|you're|u r) (?:a |the )?(?:lucky )?winner\b",
+    r"\blucky day\b",
+    r"\bclaim (?:your |ur |the |a )?(?:prize|reward|cash|voucher|gift|bonus|winnings)\b",
     r"\b(?:cash|bonus|guaranteed|mega) (?:prize|award|reward)\b",
     r"\bawarded with\b",
     r"\b(?:a )?winner of\b",
@@ -354,8 +362,9 @@ SCREEN_APP = rx(
 )
 APK = rx(r"\.apk\b", r"\bapk (?:file|download|link)\b")
 JOB = rx(
-    r"\b(?:part[ -]?time|work from home|wfh|home[ -]based) (?:job|work|income|opportunity)\b",
-    r"\bwork from home\b",
+    r"\b(?:part[ -]?time|work from home|wfh|home[ -]based) (?:job|work|income|opportunity)\b"
+    r"(?=.{0,80}\b(?:earn\w*|daily|per day|a day|income|salary|telegram|whatsapp|contact|apply|join|investment|rs\.?|₹|\d{3,}))",
+    r"\bwork from home\b(?=.{0,80}\b(?:earn\w*|daily|per day|a day|income|salary|telegram|whatsapp|contact|apply|join|investment|rs\.?|₹|\d{3,}))",
     r"\bearn (?:rs\.? ?|₹ ?)?[\d,]+(?: ?- ?[\d,]+)? (?:daily|per day|a day|every day)\b",
     r"\bdaily income\b",
     r"\blik(?:e|ing) (?:youtube )?videos\b",
@@ -443,6 +452,7 @@ BRAND_NAMES = (
     "hdfc", "icici", "kotak", "canara", "paytm", "phonepe", "googlepay", "amazon", "flipkart", "netflix",
     "electricity", "incometax", "aadhaar", "uidai", "pmkisan", "billdesk", "indiapost", "fedex", "bluedart",
     "airtel", "yono", "npci", "tneb", "bses", "bescom", "msedcl", "police", "customs",
+    "apple", "icloud", "paypal", "microsoft", "whatsapp", "instagram", "facebook", "google", "youtube",
 )
 BRAND_TOKENS = {"sbi", "rbi", "lic", "pnb", "bob", "kbc", "kyc", "gov", "govt", "eb", "itr", "gpay", "jio", "dhl", "axis"}
 BRAND_PREFIXES = ("sbi", "rbi", "kyc")
@@ -463,6 +473,8 @@ OFFICIAL_DOMAINS = {
     "amazon.in", "amazon.com", "flipkart.com", "netflix.com", "npci.org.in", "rbi.org.in", "licindia.in",
     "google.com", "incometax.gov.in", "uidai.gov.in", "airtel.in", "jio.com", "fedex.com", "bluedart.com",
     "indiapost.gov.in", "cybercrime.gov.in", "sancharsaathi.gov.in",
+    "apple.com", "icloud.com", "paypal.com", "microsoft.com", "whatsapp.com", "instagram.com", "facebook.com",
+    "youtube.com", "google.co.in",
 }
 OFFICIAL_SUFFIXES = (".gov.in", ".nic.in", ".bank.in")
 
@@ -683,9 +695,94 @@ def suspicious_link(m: Message) -> list[str]:
     return out[:2]
 
 
+ACCOUNT_THING = rx(
+    r"\baccount\b",
+    r"\b(?:atm|debit|credit)? ?card\b",
+    r"\bonline banking\b",
+    r"\bapple ?id\b",
+    r"\bsim\b",
+    r"\bupi(?: id)?\b",
+    "खाता",
+    "कार्ड",
+    "கணக்கு",
+    "கார்டு",
+)
+WILL_BE_BLOCKED = rx(
+    r"\b(?:will be|has been|have been|has just been|is being|got|is|are|was) (?:temporarily |permanently |now )?"
+    r"(?:blocked|suspended|de-?activated|closed|frozen|locked|disabled|terminated|restricted|on hold)\b",
+    r"\bavoid (?:your )?(?:account |card )?(?:suspension|de-?activation|blocking|closure|being blocked)\b",
+)
+AS_REQUESTED = rx(r"\bas (?:per )?(?:your )?request(?:ed)?\b", r"\bat your request\b", r"\byour request to\b")
+
+
+ALERT = rx(
+    r"\b(?:unusual|suspicious|unauthori[sz]ed|unrecogni[sz]ed|strange) (?:activity|login|log-in|sign-?in|transaction|access|payment|purchase)s?\b",
+    r"\bif (?:this|it) (?:was|is|wasn'?t|isn'?t) (?:not )?(?:done by |made by )?you\b",
+    r"\bif not (?:done |made )?(?:by )?you\b",
+    r"\bnot done by you\b",
+    r"\bwas this you\b",
+)
+
+
+def _unofficial_urls(m: Message) -> list[str]:
+    return [u for u, h in zip(m.urls, m.hosts) if not is_official(h)]
+
+
+@rule("fake_security_alert", 3, "RBI-BEAWARE", ("no_link", "call_bank"))
+def fake_security_alert(m: Message) -> list[str]:
+    """A security alert that sends you to a link that is not the bank's site."""
+    urls = _unofficial_urls(m)
+    if not urls:
+        return []
+    hits = find(ALERT, m.words)
+    return (quotes(m, hits, limit=1) + urls[:1]) if hits else []
+
+
+PARCEL = rx(
+    r"\bdeliver(?:y|ies)?\b", r"\bparcel\b", r"\bpackage\b", r"\bcourier\b", r"\bshipment\b", r"\bconsignment\b",
+    "पार्सल", "डिलीवरी", "பார்சல்", "டெலிவரி",
+)
+PARCEL_PROBLEM = rx(
+    r"\b(?:could not|couldn'?t|unable to|failed to|cannot|can'?t) (?:be )?(?:make a )?deliver\w*",
+    r"\bundeliver\w*",
+    r"\bdelivery (?:failed|attempt|unsuccessful|was unsuccessful)\b",
+    r"\bre-?schedule\b",
+    r"\b(?:incomplete|incorrect|wrong|invalid|insufficient) address\b",
+    r"\bupdate (?:your )?(?:delivery )?address\b",
+    r"\bheld at\b",
+    "पता अपडेट",
+    "अधूरा पता",
+    "முகவரி",
+)
+
+
+@rule("parcel_problem_link", 2, "RBI-BEAWARE", ("no_link", "no_call_number"))
+def parcel_problem_link(m: Message) -> list[str]:
+    """'Your parcel could not be delivered, update address at this link or call this number.'"""
+    if not (_unofficial_urls(m) or m.mobiles):
+        return []
+    return quotes(m, near(m.words, PARCEL, PARCEL_PROBLEM, 80))
+
+
+REWARD = rx(r"\brefund\b", r"\breward\b", r"\bprize\b", r"\bgift\b", r"\bbonus\b", r"\bcash ?back\b", "रिफंड", "इनाम", "பரிசு")
+
+
+@rule("reward_link", 2, "RBI-BEAWARE", ("no_link", "no_details"))
+def reward_link(m: Message) -> list[str]:
+    """A refund, prize or cashback that you collect through a link that is not an official site."""
+    urls = _unofficial_urls(m)
+    if not urls or not REWARD.search(m.words):
+        return []
+    return quotes(m, find(REWARD, m.words), limit=1) + urls[:1]
+
+
 @rule("account_block_threat", 2, "RBI-BEAWARE", ("no_link", "call_bank"))
 def account_block_threat(m: Message) -> list[str]:
-    return quotes(m, near(m.words, KYC, BLOCK, 80))
+    t = m.words
+    spans = near(t, KYC, BLOCK, 80)
+    if not AS_REQUESTED.search(t):
+        spans += near(t, ACCOUNT_THING, WILL_BE_BLOCKED, 60)
+    return quotes(m, spans)
 
 
 @rule("utility_disconnection", 2, "DOT-CHAKSHU", ("no_call_number", "check_bill"))

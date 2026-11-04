@@ -64,17 +64,17 @@ uv run kedayam-eval
 | Test set | What it is | Precision | Recall | False alarms |
 | --- | --- | --- | --- | --- |
 | Hand-written holdout | 45 scam and 35 normal messages in English, Tamil, Hindi and mixed script, based on RBI, NPCI, I4C and DoT advisories | 1.000 | 1.000 | 0 of 35 |
-| Public dataset test split | 876 messages from the Mishra and Soni SMS phishing dataset, not used to write rules | 1.000 | 0.180 (smishing 27 of 92, marketing spam 0 of 58) | 0 of 726 |
+| Public dataset test split | 876 messages from the Mishra and Soni SMS phishing dataset; rules were tuned only on its train and validation splits | 1.000 | 0.333 (smishing 49 of 92, marketing spam 1 of 58) | 0 of 726 |
 
 Screenshots: on 10 synthetic phone screenshots (English, Tamil, Hindi; light and dark; 3 made to look like a tilted, blurred phone photo), the result from the screenshot matched the result from typing the text in 10 of 10, with 0.88 to 1.00 of the words read correctly. These are rendered images, not real photos.
 
-Read these honestly. The holdout set was committed before any rule existed, but the same person wrote both, so a perfect score shows the rules cover the advisory patterns, not real-world accuracy. On the independent public data, Kedayam raised no false alarms but caught under a third of the smishing messages. [eval/HISTORY.md](eval/HISTORY.md) records each run, including why the wording model was removed from the decision: it flagged 16 of 35 normal bank and service messages.
+Read these honestly. The holdout set was committed before any rule existed, but the same person wrote both, so a perfect score shows the rules cover the advisory patterns, not real-world accuracy. On the public test split, which was not used for tuning, Kedayam raised no false alarms and flagged just over half of the smishing messages, mostly as "Be careful"; it misses much of the UK premium-rate marketing spam in that dataset, which it was not built for. [eval/HISTORY.md](eval/HISTORY.md) records each run, including why the wording model was removed from the decision: it flagged 16 of 35 normal bank and service messages.
 
 To retrain the wording model by hand: `uv run kedayam-train`.
 
 ## How it works
 
-* `src/kedayam/rules.py`: 25 readable rules, one per scam pattern, each with a weight and a cited public source. One critical pattern (such as "enter PIN to receive") gives a Warning. Weaker signs (urgency, a threat to block the account, a mobile number to call) add up.
+* `src/kedayam/rules.py`: 28 readable rules, one per scam pattern, each with a weight and a cited public source. One critical pattern (such as "enter PIN to receive") gives a Warning. Weaker signs (urgency, a threat to block the account, a mobile number to call) add up.
 * `src/kedayam/engine.py`: runs the rules and picks one of three results: "Warning: this looks like a scam", "Be careful", or "No known scam pattern found".
 * `src/kedayam/classifier.py`: TF-IDF and logistic regression on the public dataset. Shown as a hint for English text only; it does not change the result.
 * `src/kedayam/ocr.py`: screenshot reading with Tesseract (English, Tamil and Hindi together). The image is decoded and passed to Tesseract in memory, never written to disk.

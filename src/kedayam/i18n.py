@@ -230,6 +230,21 @@ RULE_TEXT: dict[str, dict[str, tuple[str, str]]] = {
         "ta": ("சுருக்கப்பட்ட அல்லது வழக்கத்துக்கு மாறான லிங்க்", "சுருக்கிய லிங்குகளும் வினோதமான முகவரிகளும் உண்மையில் எங்கே போகின்றன என்பதை மறைக்கின்றன. வங்கிகள் இப்படி லிங்க் அனுப்பாது."),
         "hi": ("छोटा या अजीब लिंक", "छोटे लिंक और अजीब वेब पते छिपाते हैं कि वे असल में कहाँ ले जाते हैं। बैंक ऐसे लिंक नहीं भेजते।"),
     },
+    "fake_security_alert": {
+        "en": ("A fake security alert with a link", "Real banks do not ask you to click a link to stop an 'unusual' or 'unauthorised' transaction. The link leads to a fake site that steals your login."),
+        "ta": ("லிங்குடன் கூடிய போலி பாதுகாப்பு எச்சரிக்கை", "'வழக்கத்துக்கு மாறான' அல்லது 'அனுமதியில்லாத' பரிவர்த்தனையை நிறுத்த உண்மையான வங்கிகள் லிங்கைக் கிளிக் செய்யச் சொல்லாது. அந்த லிங்க் உங்கள் உள்நுழைவு விவரங்களைத் திருடும் போலி தளத்துக்குக் கொண்டு செல்லும்."),
+        "hi": ("लिंक वाली नकली सुरक्षा चेतावनी", "असली बैंक किसी 'अजीब' या 'बिना अनुमति' लेन-देन को रोकने के लिए लिंक दबाने को नहीं कहते। लिंक एक नकली साइट पर ले जाता है जो आपकी लॉगिन जानकारी चुराती है।"),
+    },
+    "parcel_problem_link": {
+        "en": ("Says a parcel could not be delivered", "Fake courier messages ask you to update your address or pay a small fee through a link or a phone number. Check your order in the shop's own app instead."),
+        "ta": ("பார்சல் டெலிவரி ஆகவில்லை என்கிறது", "போலி கூரியர் செய்திகள் லிங்க் அல்லது போன் நம்பர் மூலம் முகவரியைப் புதுப்பிக்கவோ சிறு கட்டணம் கட்டவோ சொல்லும். அதற்குப் பதிலாக கடையின் சொந்த ஆப்பில் உங்கள் ஆர்டரைப் பாருங்கள்."),
+        "hi": ("कह रहा है कि पार्सल डिलीवर नहीं हो सका", "नकली कूरियर संदेश लिंक या फ़ोन नंबर से पता अपडेट करने या छोटी फ़ीस भरने को कहते हैं। इसकी जगह दुकान के अपने ऐप में अपना ऑर्डर देखें।"),
+    },
+    "reward_link": {
+        "en": ("A refund, prize or cashback through a link", "Money you are owed reaches your account by itself. A link that asks you to 'claim' it usually leads to a fake page that asks for card details or your PIN."),
+        "ta": ("லிங்க் மூலம் ரீஃபண்ட், பரிசு அல்லது கேஷ்பேக்", "உங்களுக்கு வர வேண்டிய பணம் தானாகவே கணக்கில் வரும். அதைப் 'பெற' சொல்லும் லிங்க் பெரும்பாலும் கார்டு விவரம் அல்லது PIN கேட்கும் போலிப் பக்கத்துக்குக் கொண்டு செல்லும்."),
+        "hi": ("लिंक से रिफंड, इनाम या कैशबैक", "जो पैसा आपको मिलना है, वह अपने आप खाते में आता है। उसे 'क्लेम' करने वाला लिंक अक्सर नकली पेज पर ले जाता है जो कार्ड की जानकारी या PIN माँगता है।"),
+    },
     "account_block_threat": {
         "en": ("Threatens to block your account, KYC or SIM", "Scammers say your KYC, PAN or account will be blocked so you act in a hurry. Banks ask you to visit the branch or use their official app."),
         "ta": ("கணக்கு, KYC அல்லது SIM முடக்கப்படும் என்று மிரட்டுகிறது", "நீங்கள் அவசரப்பட KYC, PAN அல்லது கணக்கு முடக்கப்படும் என்று மோசடிக்காரர்கள் சொல்வார்கள். வங்கிகள் கிளைக்கு வரச் சொல்லும் அல்லது அதிகாரப்பூர்வ ஆப்பைப் பயன்படுத்தச் சொல்லும்."),

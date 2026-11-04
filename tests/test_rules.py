@@ -52,7 +52,7 @@ CASES = {
             "Kindly share your card number and CVV to stop the charge.",
             "Verify your net banking password at the link below.",
         ],
-        ["We will never ask for your CVV or password.", "Your card number ending 1234 was used at a shop."],
+        ["We will never ask for your CVV or password.", "Your card number ending 1234 was used at a shop.", "Should I send you my account number for the gift?"],
     ),
     "screen_share_app": (
         ["Download TeamViewer so our engineer can fix your bank app.", "Please start screen sharing so I can guide you."],
@@ -96,13 +96,41 @@ CASES = {
         ["Check details at tinyurl.com/x8kq2", "Open http://198.51.100.7/pay", "Visit offer-zone.xyz now"],
         ["Read the notice at rbi.org.in", "Our new menu is at sangeetha-veg.com"],
     ),
+    "fake_security_alert": (
+        [
+            "We noticed unusual activity on your net banking. Verify at http://secure-netbank-verify.top now",
+            "Transaction of Rs 9,999 on your card. If this was not you, click https://cancel-txn.in/x",
+        ],
+        [
+            "Rs 9,999 spent on your card. If not done by you, call 1800 000 1111. -Bank",
+            "Unusual login on your account? Check at https://www.icicibank.com",
+        ],
+    ),
+    "parcel_problem_link": (
+        [
+            "India Post: your parcel could not be delivered due to incomplete address. Update: http://indpost-track.top/a",
+            "Courier delivery failed. Call 7000012345 to re-schedule.",
+        ],
+        ["Your parcel will be delivered today by 6 pm.", "Delivery failed, we will try again tomorrow. -Amazon"],
+    ),
+    "reward_link": (
+        ["Your Rs 2,000 refund is ready. Claim it at http://refund-desk.online/claim", "Claim your Diwali gift: bit.ly/gift-ab"],
+        ["Your refund of Rs 499 has been processed.", "Gift ideas for Diwali at https://www.amazon.in/diwali"],
+    ),
     "account_block_threat": (
         [
             "Your PAN card will be deactivated tonight. Update at once.",
             "आपका KYC ब्लॉक हो गया है।",
             "WE WILL HOLD YOUR WALLET AMOUNT, COMPLETE YOUR KYC",
+            "WE WILL HOLD YOUR PAYTM AMOUNT AFTER SOMETIME COMPLETE YOUR PAYTM KYC",
+            "Your ATM card has just been De-Activated. To activate call customer care.",
+            "Your account will be suspended today. Log in to avoid suspension.",
         ],
-        ["Please complete your KYC at the branch at your convenience.", "The road is blocked near the temple."],
+        [
+            "Please complete your KYC at the branch at your convenience.",
+            "The road is blocked near the temple.",
+            "Your debit card ending 4321 has been blocked as per your request.",
+        ],
     ),
     "utility_disconnection": (
         ["Your power supply will be disconnected today. Call 7000011111.", "बिजली कट जाएगी, तुरंत अधिकारी से संपर्क करें।"],
@@ -119,11 +147,15 @@ CASES = {
             "You have W0N a guaranteed cash prize of Rs.5,00,000. FL1PKART TEAM",
             "You are awarded with a Rs.2,00,000 Bonus Prize, call now",
         ],
-        ["Congratulations on your daughter's wedding!", "We did not win the cricket match today."],
+        [
+            "Congratulations on your daughter's wedding!",
+            "We did not win the cricket match today.",
+            "You won't believe how big the grandchildren have grown.",
+        ],
     ),
     "easy_money_job": (
         ["Earn Rs 5000 daily by rating hotels online.", "घर बैठे कमाएँ हज़ारों रुपये।"],
-        ["My son started his new job in Pune.", "Daily walk at 6 am in the park."],
+        ["My son started his new job in Pune.", "Daily walk at 6 am in the park.", "She had a part time job and tuition before."],
     ),
     "family_money_request": (
         [
