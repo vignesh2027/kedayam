@@ -11,7 +11,7 @@
 
 5,971 text messages with a `LABEL` column: 4,844 `ham`, 489 `spam` (written as `spam` or `Spam`), 638 `smishing` (written as `Smishing` or `smishing`). The authors describe the messages as collected by converting images found on the internet to text. Many of the ham messages appear to come from the earlier UCI SMS Spam Collection (Almeida and Gomez Hidalgo, 2011), and the smishing messages include Indian bank and KYC scams. The file contains about 185 Unicode replacement characters from the original conversion; we leave them as they are.
 
-## How Kavach uses it
+## How Kedayam uses it
 
 * Labels are normalised to lower case. `spam` and `smishing` are merged into one class, "suspicious", and `ham` is the other class.
 * Exact duplicate messages (after lower casing and collapsing whitespace) are removed before splitting, so the same text cannot appear in both training and test data.
@@ -20,4 +20,4 @@
 
 ## Limits of this data
 
-It is mostly English and mostly older (pre-2022) messages. It has very little Tamil or Hindi text and few UPI collect request or digital arrest scams. Ham messages are personal chat more than bank alerts. That is why Kavach treats the classifier only as a secondary signal.
+It is mostly English and mostly older (pre-2022) messages. It has very little Tamil or Hindi text and few UPI collect request or digital arrest scams. Ham messages are personal chat more than bank alerts. That is why Kedayam treats the classifier only as a secondary signal.

@@ -1,8 +1,8 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from kavach.app import app
-from kavach.i18n import LANGS, UI
+from kedayam.app import app
+from kedayam.i18n import LANGS, UI
 
 
 @pytest.fixture(scope="module")
@@ -91,3 +91,13 @@ def test_about_page(client):
     r = client.get("/about")
     assert r.status_code == 200
     assert "npci.org.in" in r.text
+
+
+def test_logo_served_and_old_name_gone(client):
+    assert client.get("/static/logo.svg").status_code == 200
+    assert client.get("/static/logo-512.png").headers["content-type"] == "image/png"
+    for path in ("/?lang=en", "/?lang=ta", "/?lang=hi", "/about"):
+        page = client.get(path).text
+        assert "Kedayam" in page
+        for old in ("Kavach", "கவச்", "कवच"):
+            assert old not in page

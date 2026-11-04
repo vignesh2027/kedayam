@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Kavach · {{ t('level_' ~ r.level) }}{% endblock %}
+{% block title %}Kedayam · {{ t('level_' ~ r.level) }}{% endblock %}
 {% block main %}
   <section class="verdict verdict-{{ r.level }}" aria-labelledby="verdict-title">
     <img class="verdict-icon" src="/static/{{ {'danger': 'stop', 'caution': 'caution', 'none': 'info'}[r.level] }}.svg" alt="" width="64" height="64">

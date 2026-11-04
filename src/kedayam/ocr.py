@@ -2,7 +2,7 @@
 
 The image is processed in memory: it is decoded with Pillow, re-encoded as
 PNG and passed to the tesseract program on stdin. Nothing is written to
-disk. Tesseract language data is downloaded once by `uv run kavach-ocr-setup`
+disk. Tesseract language data is downloaded once by `uv run kedayam-ocr-setup`
 into vendor/tessdata and checked against pinned SHA-256 hashes.
 """
 

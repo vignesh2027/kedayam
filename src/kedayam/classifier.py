@@ -30,7 +30,7 @@ MODEL_PATH = MODEL_DIR / "classifier.joblib"
 META_PATH = MODEL_DIR / "classifier.json"
 SEED = 42
 # Precision we want on validation before the classifier may raise a caution
-# on its own. High, because a false alarm teaches people to ignore Kavach.
+# on its own. High, because a false alarm teaches people to ignore Kedayam.
 TARGET_PRECISION = 0.95
 
 
@@ -162,7 +162,7 @@ def load(auto_train: bool = True) -> Classifier | None:
     if not MODEL_PATH.exists() or not META_PATH.exists():
         if not auto_train:
             return None
-        print("Kavach: training the wording classifier for the first time (a few seconds)...", file=sys.stderr)
+        print("Kedayam: training the wording classifier for the first time (a few seconds)...", file=sys.stderr)
         train(verbose=False)
     meta = json.loads(META_PATH.read_text())
     _cached = Classifier(joblib.load(MODEL_PATH), float(meta["threshold"]))

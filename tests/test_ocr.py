@@ -1,5 +1,5 @@
 """Screenshot reading. Tests that need Tesseract are skipped when it or the
-language data is missing (run `uv run kavach-ocr-setup`)."""
+language data is missing (run `uv run kedayam-ocr-setup`)."""
 
 import io
 import json
@@ -10,10 +10,10 @@ import pytest
 from fastapi.testclient import TestClient
 from PIL import Image
 
-from kavach import ocr
-from kavach.app import app
-from kavach.engine import analyse
-from kavach.i18n import UI
+from kedayam import ocr
+from kedayam.app import app
+from kedayam.engine import analyse
+from kedayam.i18n import UI
 
 FIX = Path(__file__).parent / "fixtures" / "screenshots"
 MANIFEST = json.loads((FIX / "manifest.json").read_text(encoding="utf-8"))

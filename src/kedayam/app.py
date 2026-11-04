@@ -1,4 +1,4 @@
-"""Kavach web app: server-rendered pages, no JavaScript, local only.
+"""Kedayam web app: server-rendered pages, no JavaScript, local only.
 
 The server binds to 127.0.0.1 so other devices on the network cannot reach
 it. Messages are processed in memory, never written to disk or logs.
@@ -43,7 +43,7 @@ async def lifespan(_: FastAPI):
     yield
 
 
-app = FastAPI(title="Kavach", docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
+app = FastAPI(title="Kedayam", docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=HERE / "static"), name="static")
 
 
@@ -184,12 +184,12 @@ def main() -> None:
     import socket
     import sys
 
-    port = int(os.environ.get("KAVACH_PORT", "8740"))
+    port = int(os.environ.get("KEDAYAM_PORT", "8740"))
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         if s.connect_ex(("127.0.0.1", port)) == 0:
-            sys.exit(f"Port {port} is already in use. Start Kavach on another port, for example: KAVACH_PORT={port + 1} uv run kavach")
+            sys.exit(f"Port {port} is already in use. Start Kedayam on another port, for example: KEDAYAM_PORT={port + 1} uv run kedayam")
     clf.load()
-    print(f"Kavach is running. Open http://127.0.0.1:{port} in your browser. Press Ctrl+C to stop.", flush=True)
+    print(f"Kedayam is running. Open http://127.0.0.1:{port} in your browser. Press Ctrl+C to stop.", flush=True)
     uvicorn.run(app, host="127.0.0.1", port=port, access_log=False, log_level="warning")
 
 

@@ -1,12 +1,14 @@
-# Kavach
+<img src="src/kedayam/static/logo-512.png" width="112" alt="Kedayam logo: a shield with an eye whose lower edge is a check mark">
 
-Kavach ("shield") helps older parents in India check a suspicious SMS or WhatsApp message before acting on it. Paste the message and Kavach says, in plain English, Tamil or Hindi, whether it matches a known UPI or SMS scam pattern, why, and what to do next.
+# Kedayam
+
+Kedayam (கேடயம், Tamil for "shield") helps older parents in India check a suspicious SMS or WhatsApp message before acting on it. Paste the message and Kedayam says, in plain English, Tamil or Hindi, whether it matches a known UPI or SMS scam pattern, why, and what to do next.
 
 It runs on your own computer. The message is never sent anywhere.
 
 * **Who it is for:** a retired parent who uses UPI and gets messages about refunds, KYC, electricity bills, prizes or "police cases", and the son or daughter who sets it up for them.
 * **The safer outcome:** a message like "To receive your refund, accept the request and enter your UPI PIN" gets a clear "Warning: this looks like a scam", the reason in their language ("The UPI PIN is only for sending money"), and the next step (do not enter the PIN, call the bank on the number on your card, call 1930 if money was lost).
-* **One limitation:** Kavach only knows the tricks it has rules for. A new scam script that avoids those patterns gets "No known scam pattern found", which is why it never says "safe".
+* **One limitation:** Kedayam only knows the tricks it has rules for. A new scam script that avoids those patterns gets "No known scam pattern found", which is why it never says "safe".
 
 See [DESIGN.md](DESIGN.md) for the user, the harm, how success is measured and the responsible design choices, and [RULES.md](RULES.md) for the hackathon rules this was built to.
 
@@ -15,15 +17,15 @@ See [DESIGN.md](DESIGN.md) for the user, the harm, how success is measured and t
 You need [uv](https://docs.astral.sh/uv/) and macOS or Linux. uv installs Python 3.12 for you if needed.
 
 ```sh
-git clone <this repository> kavach
-cd kavach
+git clone <this repository> kedayam
+cd kedayam
 uv sync
-uv run kavach
+uv run kedayam
 ```
 
 Then open http://127.0.0.1:8740 in a browser. The first start trains the small wording model from the dataset in `data/` (a few seconds); later starts reuse it. Press Ctrl+C to stop.
 
-If port 8740 is busy, choose another: `KAVACH_PORT=8741 uv run kavach`.
+If port 8740 is busy, choose another: `KEDAYAM_PORT=8741 uv run kedayam`.
 
 ### Screenshot checking (optional)
 
@@ -32,12 +34,12 @@ To check screenshots as well as pasted text, install the Tesseract OCR program a
 ```sh
 brew install tesseract              # macOS
 # sudo apt install tesseract-ocr    # Debian or Ubuntu instead
-uv run kavach-ocr-setup
+uv run kedayam-ocr-setup
 ```
 
-`kavach-ocr-setup` downloads three files (about 8.5 MB) from the tessdata_fast project into `vendor/tessdata/` with curl and checks each against a pinned SHA-256 hash. Restart `uv run kavach` and an "Or check a screenshot" box appears on the home page. Without this step Kavach still works for pasted text and hides the screenshot box.
+`kedayam-ocr-setup` downloads three files (about 8.5 MB) from the tessdata_fast project into `vendor/tessdata/` with curl and checks each against a pinned SHA-256 hash. Restart `uv run kedayam` and an "Or check a screenshot" box appears on the home page. Without this step Kedayam still works for pasted text and hides the screenshot box.
 
-After reading a screenshot, Kavach shows the text it read above the result, in a box you can correct and check again.
+After reading a screenshot, Kedayam shows the text it read above the result, in a box you can correct and check again.
 
 Try these fictional messages:
 
@@ -52,12 +54,12 @@ Sample screenshots to upload are in `tests/fixtures/screenshots/`.
 
 ```sh
 uv run pytest
-uv run kavach-eval
+uv run kedayam-eval
 ```
 
 `pytest` runs a catching case and a non-catching case for every rule, checks that every rule and screen has text in all three languages, and checks the privacy headers, link defanging, HTML escaping and screenshot uploads. Screenshot tests that need Tesseract are skipped if it is not set up.
 
-`kavach-eval` rewrites [eval/RESULTS.md](eval/RESULTS.md). Current results:
+`kedayam-eval` rewrites [eval/RESULTS.md](eval/RESULTS.md). Current results:
 
 | Test set | What it is | Precision | Recall | False alarms |
 | --- | --- | --- | --- | --- |
@@ -66,24 +68,24 @@ uv run kavach-eval
 
 Screenshots: on 10 synthetic phone screenshots (English, Tamil, Hindi; light and dark; 3 made to look like a tilted, blurred phone photo), the result from the screenshot matched the result from typing the text in 10 of 10, with 0.88 to 1.00 of the words read correctly. These are rendered images, not real photos.
 
-Read these honestly. The holdout set was committed before any rule existed, but the same person wrote both, so a perfect score shows the rules cover the advisory patterns, not real-world accuracy. On the independent public data, Kavach raised no false alarms but caught under a third of the smishing messages. [eval/HISTORY.md](eval/HISTORY.md) records each run, including why the wording model was removed from the decision: it flagged 16 of 35 normal bank and service messages.
+Read these honestly. The holdout set was committed before any rule existed, but the same person wrote both, so a perfect score shows the rules cover the advisory patterns, not real-world accuracy. On the independent public data, Kedayam raised no false alarms but caught under a third of the smishing messages. [eval/HISTORY.md](eval/HISTORY.md) records each run, including why the wording model was removed from the decision: it flagged 16 of 35 normal bank and service messages.
 
-To retrain the wording model by hand: `uv run kavach-train`.
+To retrain the wording model by hand: `uv run kedayam-train`.
 
 ## How it works
 
-* `src/kavach/rules.py`: 25 readable rules, one per scam pattern, each with a weight and a cited public source. One critical pattern (such as "enter PIN to receive") gives a Warning. Weaker signs (urgency, a threat to block the account, a mobile number to call) add up.
-* `src/kavach/engine.py`: runs the rules and picks one of three results: "Warning: this looks like a scam", "Be careful", or "No known scam pattern found".
-* `src/kavach/classifier.py`: TF-IDF and logistic regression on the public dataset. Shown as a hint for English text only; it does not change the result.
-* `src/kavach/ocr.py`: screenshot reading with Tesseract (English, Tamil and Hindi together). The image is decoded and passed to Tesseract in memory, never written to disk.
-* `src/kavach/app.py` and `templates/`: FastAPI with server-rendered HTML and one stylesheet. No JavaScript.
-* `src/kavach/i18n.py`: all text in English, Tamil and Hindi.
+* `src/kedayam/rules.py`: 25 readable rules, one per scam pattern, each with a weight and a cited public source. One critical pattern (such as "enter PIN to receive") gives a Warning. Weaker signs (urgency, a threat to block the account, a mobile number to call) add up.
+* `src/kedayam/engine.py`: runs the rules and picks one of three results: "Warning: this looks like a scam", "Be careful", or "No known scam pattern found".
+* `src/kedayam/classifier.py`: TF-IDF and logistic regression on the public dataset. Shown as a hint for English text only; it does not change the result.
+* `src/kedayam/ocr.py`: screenshot reading with Tesseract (English, Tamil and Hindi together). The image is decoded and passed to Tesseract in memory, never written to disk.
+* `src/kedayam/app.py` and `templates/`: FastAPI with server-rendered HTML and one stylesheet. No JavaScript.
+* `src/kedayam/i18n.py`: all text in English, Tamil and Hindi.
 
 ## Privacy and safety choices
 
 * The server only listens on 127.0.0.1. Messages and screenshots are processed in memory and are not saved or logged; access logging is off. Uploads up to 8 MB are kept in memory (larger ones are refused), so a screenshot is never written to a temporary file.
 * Pages send `Cache-Control: no-store` and a Content Security Policy that blocks all scripts and outside resources.
-* Links in a checked message are shown defanged (`hxxp://sbi-kyc[.]online`) so they cannot be tapped from Kavach.
+* Links in a checked message are shown defanged (`hxxp://sbi-kyc[.]online`) so they cannot be tapped from Kedayam.
 * Every result has an "I think this result is wrong" section that explains how to verify independently.
 * All example messages, phone numbers and UPI IDs are made up.
 

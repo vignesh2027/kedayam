@@ -166,7 +166,7 @@ wheels = [
 ]
 
 [[package]]
-name = "kavach"
+name = "kedayam"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

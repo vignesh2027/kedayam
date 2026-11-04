@@ -6,8 +6,8 @@ is only used by the evaluation script.
 
 import pytest
 
-from kavach.rules import RULES, RULES_BY_ID, brand_in, is_official
-from kavach.textutil import parse
+from kedayam.rules import RULES, RULES_BY_ID, brand_in, is_official
+from kedayam.textutil import parse
 
 CASES = {
     "pin_to_receive": (
@@ -197,7 +197,7 @@ def test_official_domains():
 
 
 def test_every_rule_has_text_in_all_languages():
-    from kavach.i18n import ACTION_TEXT, LANGS, RULE_TEXT, SOURCE_LINKS
+    from kedayam.i18n import ACTION_TEXT, LANGS, RULE_TEXT, SOURCE_LINKS
 
     for r in RULES:
         assert r.id in RULE_TEXT, r.id

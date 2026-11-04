@@ -3,19 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Kavach{% endblock %}</title>
+  <title>{% block title %}Kedayam{% endblock %}</title>
   <link rel="stylesheet" href="/static/style.css">
-  <link rel="icon" href="/static/shield.svg" type="image/svg+xml">
+  <link rel="icon" href="/static/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/static/logo-512.png">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <header class="top">
     <div class="wrap top-inner">
-      <a class="brand" href="/?lang={{ lang }}" aria-label="Kavach, {{ t('home') }}">
-        <img src="/static/shield.svg" alt="" width="44" height="44">
-        <span class="brand-name">Kavach</span>
-        <span class="brand-native" lang="ta">கவச்</span>
-        <span class="brand-native" lang="hi">कवच</span>
+      <a class="brand" href="/?lang={{ lang }}" aria-label="Kedayam, {{ t('home') }}">
+        <img src="/static/logo.svg" alt="" width="48" height="48">
+        <span class="brand-name">Kedayam</span>
+        <span class="brand-native" lang="ta">கேடயம்</span>
+        <span class="brand-native" lang="hi">केडयम</span>
       </a>
       <nav class="langs" aria-label="{{ t('language') }}">
         {% for code in langs %}

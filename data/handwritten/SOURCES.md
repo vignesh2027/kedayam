@@ -1,6 +1,6 @@
 # Sources for the hand-written message sets
 
-Every message in `holdout.jsonl` and `dev.jsonl` was written by the Kavach author for this project. None is copied from a real person's phone. Phone numbers, UPI IDs, account numbers and links are made up. Numbers in the 70000xxxxx range are fictional placeholders, and IP addresses use the 198.51.100.0/24 documentation range.
+Every message in `holdout.jsonl` and `dev.jsonl` was written by the Kedayam author for this project. None is copied from a real person's phone. Phone numbers, UPI IDs, account numbers and links are made up. Numbers in the 70000xxxxx range are fictional placeholders, and IP addresses use the 198.51.100.0/24 documentation range.
 
 Each scam message follows a pattern described in one of these public sources. The `source` field in each record uses the keys below.
 

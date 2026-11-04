@@ -2,7 +2,7 @@
 
 * danger: any critical rule (weight 3), or rule weights adding up to 4+.
 * caution: rule weights adding up to 2 or 3.
-* none: nothing found. Kavach never says "safe".
+* none: nothing found. Kedayam never says "safe".
 
 The wording classifier is computed for English text and shown as a hint in
 the details, but it does not change the result. On the hand-written holdout

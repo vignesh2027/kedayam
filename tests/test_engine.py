@@ -1,6 +1,6 @@
-from kavach.engine import analyse
-from kavach.i18n import UI, LANGS
-from kavach.textutil import defang, negated, normalise
+from kedayam.engine import analyse
+from kedayam.i18n import UI, LANGS
+from kedayam.textutil import defang, negated, normalise
 
 
 def test_critical_pattern_gives_danger():
@@ -67,7 +67,7 @@ def test_long_text_is_truncated_not_crashing():
 
 
 def test_leetspeak_is_undone_for_keywords_only():
-    from kavach.textutil import parse
+    from kedayam.textutil import parse
 
     m = parse("You have W0N Rs 5,00,000. Call 7000012345")
     assert "won" in m.words

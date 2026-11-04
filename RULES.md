@@ -54,17 +54,17 @@ From the rules ("Submission package"): "Complete your Devpost project page with 
 
 Rules, "Scope and original work": "Submit one entry per project with a clear connection to security or safety. Identify work created during the event and credit pre-existing components, third-party assets, datasets, and AI assistance. Any stack may be used when its terms permit it. Submit only material you have permission to use."
 
-Kavach was started on 4 November 2026, inside the build window, in a new repository. The git history is the record of event work. Pre-existing components are third-party libraries, the Tesseract OCR engine and its language data, and the two public datasets; all are listed in the README credits.
+Kedayam was started on 4 November 2026, inside the build window, in a new repository. The git history is the record of event work. Pre-existing components are third-party libraries, the Tesseract OCR engine and its language data, and the two public datasets; all are listed in the README credits.
 
 ## Responsible demonstration rule
 
 Rules, "Demonstrate responsibly": "Use synthetic data, local demonstrations, or systems you own or have explicit permission to test. Do not attack third-party services, collect private credentials, reveal personal information, or publish live exploit details. A protective tool should not create avoidable risk for its users. Explain limitations rather than promising guaranteed safety. Projects are prototypes and should not be presented as replacements for emergency services."
 
-How Kavach follows it: every demo message is fictional; phone numbers and UPI IDs in examples are made up; the app never says a message is safe; it points to the 1930 helpline and cybercrime.gov.in rather than acting as a reporting channel itself.
+How Kedayam follows it: every demo message is fictional; phone numbers and UPI IDs in examples are made up; the app never says a message is safe; it points to the 1930 helpline and cybercrime.gov.in rather than acting as a reporting channel itself.
 
 ## Entering the same project in other events
 
-The pages say nothing explicit about entering the same project in other hackathons. The only related lines are "Submit one entry per project" and "Submit only material you have permission to use". Organizers and judges may not enter competing projects. If we consider reusing Kavach elsewhere, we should ask the organizers through the contact link first and keep this entry the original.
+The pages say nothing explicit about entering the same project in other hackathons. The only related lines are "Submit one entry per project" and "Submit only material you have permission to use". Organizers and judges may not enter competing projects. If we consider reusing Kedayam elsewhere, we should ask the organizers through the contact link first and keep this entry the original.
 
 ## Open item for the entrant
 
