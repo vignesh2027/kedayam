@@ -142,7 +142,7 @@ def main() -> None:
     port = int(os.environ.get("KAVACH_PORT", "8740"))
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         if s.connect_ex(("127.0.0.1", port)) == 0:
-            sys.exit(f"Port {port} is already in use. Start Kavach on another port, for example: KAVACH_PORT=8741 uv run kavach")
+            sys.exit(f"Port {port} is already in use. Start Kavach on another port, for example: KAVACH_PORT={port + 1} uv run kavach")
     clf.load()
     print(f"Kavach is running. Open http://127.0.0.1:{port} in your browser. Press Ctrl+C to stop.", flush=True)
     uvicorn.run(app, host="127.0.0.1", port=port, access_log=False, log_level="warning")
