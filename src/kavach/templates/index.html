@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Kavach · {{ t('tagline') }}{% endblock %}
+{% block main %}
+  <h1 class="lead">{{ t('tagline') }}</h1>
+  <p class="privacy"><img src="/static/lock.svg" alt="" width="28" height="28"> {{ t('privacy') }}</p>
+
+  {% if error %}
+    <p class="error" role="alert">{{ error }}</p>
+  {% endif %}
+
+  <form class="card" method="post" action="/check">
+    <input type="hidden" name="lang" value="{{ lang }}">
+    <label for="text" class="big-label">{{ t('paste_label') }}</label>
+    <p id="text-hint" class="hint">{{ t('paste_hint') }}</p>
+    <textarea id="text" name="text" rows="7" maxlength="{{ max_chars }}" aria-describedby="text-hint" required
+              spellcheck="false" autocomplete="off">{{ text or '' }}</textarea>
+
+    <label for="sender" class="small-label">{{ t('sender_label') }}</label>
+    <p id="sender-hint" class="hint">{{ t('sender_hint') }}</p>
+    <input id="sender" name="sender" type="text" maxlength="100" autocomplete="off" aria-describedby="sender-hint" value="{{ sender or '' }}">
+
+    <button type="submit" class="primary">{{ t('check') }}</button>
+  </form>
+{% endblock %}

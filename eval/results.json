@@ -1,0 +1,113 @@
+{
+  "holdout": {
+    "rules": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 45,
+      "fp": 0,
+      "fn": 0,
+      "tn": 35,
+      "false_alarm_rate": 0.0,
+      "warning_recall": 0.911,
+      "warning_false_alarms": 0
+    },
+    "classifier": {
+      "precision": 0.673,
+      "recall": 0.822,
+      "tp": 37,
+      "fp": 18,
+      "fn": 8,
+      "tn": 17,
+      "false_alarm_rate": 0.514,
+      "warning_recall": 0.0,
+      "warning_false_alarms": 0
+    },
+    "combined": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 45,
+      "fp": 0,
+      "fn": 0,
+      "tn": 35,
+      "false_alarm_rate": 0.0,
+      "warning_recall": 0.911,
+      "warning_false_alarms": 0
+    }
+  },
+  "dataset_test": {
+    "rules": {
+      "precision": 1.0,
+      "recall": 0.18,
+      "tp": 27,
+      "fp": 0,
+      "fn": 123,
+      "tn": 726,
+      "false_alarm_rate": 0.0,
+      "warning_recall": 0.02,
+      "warning_false_alarms": 0
+    },
+    "classifier": {
+      "precision": 0.973,
+      "recall": 0.967,
+      "tp": 145,
+      "fp": 4,
+      "fn": 5,
+      "tn": 722,
+      "false_alarm_rate": 0.006,
+      "warning_recall": 0.0,
+      "warning_false_alarms": 0
+    },
+    "combined": {
+      "precision": 1.0,
+      "recall": 0.18,
+      "tp": 27,
+      "fp": 0,
+      "fn": 123,
+      "tn": 726,
+      "false_alarm_rate": 0.0,
+      "warning_recall": 0.02,
+      "warning_false_alarms": 0
+    },
+    "rules_recall_smishing": {
+      "flagged": 27,
+      "total": 92
+    },
+    "rules_recall_spam": {
+      "flagged": 0,
+      "total": 58
+    }
+  },
+  "holdout_by_language": {
+    "en": {
+      "scam": 33,
+      "scam_flagged": 33,
+      "legit": 26,
+      "legit_flagged": 0
+    },
+    "hinglish": {
+      "scam": 2,
+      "scam_flagged": 2,
+      "legit": 1,
+      "legit_flagged": 0
+    },
+    "hi": {
+      "scam": 5,
+      "scam_flagged": 5,
+      "legit": 4,
+      "legit_flagged": 0
+    },
+    "ta": {
+      "scam": 4,
+      "scam_flagged": 4,
+      "legit": 4,
+      "legit_flagged": 0
+    },
+    "tanglish": {
+      "scam": 1,
+      "scam_flagged": 1,
+      "legit": 0,
+      "legit_flagged": 0
+    }
+  },
+  "classifier_threshold": 0.5
+}

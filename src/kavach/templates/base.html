@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Kavach{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="icon" href="/static/shield.svg" type="image/svg+xml">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="/?lang={{ lang }}" aria-label="Kavach, {{ t('home') }}">
+        <img src="/static/shield.svg" alt="" width="44" height="44">
+        <span class="brand-name">Kavach</span>
+        <span class="brand-native" lang="ta">கவச்</span>
+        <span class="brand-native" lang="hi">कवच</span>
+      </a>
+      <nav class="langs" aria-label="{{ t('language') }}">
+        {% for code in langs %}
+          <a href="{{ request.url.path if request.url.path != '/check' else '/' }}?lang={{ code }}" lang="{{ code }}" hreflang="{{ code }}"
+             {% if code == lang %}aria-current="true" class="on"{% endif %}>{{ lang_names[code] }}</a>
+        {% endfor %}
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="wrap">
+    {% block main %}{% endblock %}
+  </main>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="helpline"><strong>{{ t('helpline') }}</strong> · cybercrime.gov.in</p>
+      <p>{{ t('limit_note') }}</p>
+      <p><a href="/about?lang={{ lang }}">{{ t('about') }}</a></p>
+    </div>
+  </footer>
+</body>
+</html>

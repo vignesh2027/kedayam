@@ -1,0 +1,80 @@
+{"id": "H01", "label": "scam", "lang": "en", "level": "danger", "rules": ["pin_to_receive", "collect_request_lure"], "classifier": 0.918}
+{"id": "H02", "label": "scam", "lang": "en", "level": "danger", "rules": ["advance_fee", "lookalike_upi_id", "prize_lottery", "call_this_number"], "classifier": 0.99}
+{"id": "H03", "label": "scam", "lang": "en", "level": "danger", "rules": ["utility_disconnection", "urgency", "call_this_number"], "classifier": 0.934}
+{"id": "H04", "label": "scam", "lang": "en", "level": "danger", "rules": ["lookalike_link", "suspicious_link", "account_block_threat", "urgency"], "classifier": 0.961}
+{"id": "H05", "label": "scam", "lang": "en", "level": "danger", "rules": ["suspicious_link", "account_block_threat", "urgency"], "classifier": 0.673}
+{"id": "H06", "label": "scam", "lang": "en", "level": "danger", "rules": ["otp_request", "screen_share_app"], "classifier": 0.814}
+{"id": "H07", "label": "scam", "lang": "en", "level": "danger", "rules": ["digital_arrest", "authority_threat", "urgency", "secrecy"], "classifier": 0.918}
+{"id": "H08", "label": "scam", "lang": "en", "level": "danger", "rules": ["authority_threat", "urgency", "call_this_number"], "classifier": 0.929}
+{"id": "H09", "label": "scam", "lang": "en", "level": "danger", "rules": ["wrong_transfer"], "classifier": 0.141}
+{"id": "H10", "label": "scam", "lang": "en", "level": "caution", "rules": ["family_money_request", "urgency"], "classifier": 0.084}
+{"id": "H11", "label": "scam", "lang": "en", "level": "caution", "rules": ["easy_money_job"], "classifier": 0.921}
+{"id": "H12", "label": "scam", "lang": "en", "level": "danger", "rules": ["account_block_threat", "authority_threat", "urgency"], "classifier": 0.776}
+{"id": "H13", "label": "scam", "lang": "en", "level": "danger", "rules": ["otp_request"], "classifier": 0.836}
+{"id": "H14", "label": "scam", "lang": "en", "level": "danger", "rules": ["qr_to_receive"], "classifier": 0.598}
+{"id": "H15", "label": "scam", "lang": "en", "level": "danger", "rules": ["apk_link", "suspicious_link"], "classifier": 0.925}
+{"id": "H16", "label": "scam", "lang": "en", "level": "danger", "rules": ["secret_details_request", "lookalike_link", "suspicious_link"], "classifier": 0.969}
+{"id": "H17", "label": "scam", "lang": "en", "level": "danger", "rules": ["secret_details_request", "suspicious_link", "account_block_threat"], "classifier": 0.983}
+{"id": "H18", "label": "scam", "lang": "en", "level": "caution", "rules": ["account_block_threat", "call_this_number"], "classifier": 0.93}
+{"id": "H19", "label": "scam", "lang": "en", "level": "danger", "rules": ["collect_request_lure", "lookalike_upi_id"], "classifier": 0.919}
+{"id": "H20", "label": "scam", "lang": "en", "level": "danger", "rules": ["lookalike_link", "sender_is_mobile_number", "urgency"], "classifier": 0.632}
+{"id": "H21", "label": "scam", "lang": "hinglish", "level": "danger", "rules": ["utility_disconnection", "urgency", "call_this_number"], "classifier": 0.503}
+{"id": "H22", "label": "scam", "lang": "hi", "level": "danger", "rules": ["utility_disconnection", "urgency", "call_this_number"], "classifier": null}
+{"id": "H23", "label": "scam", "lang": "hi", "level": "danger", "rules": ["advance_fee", "prize_lottery"], "classifier": null}
+{"id": "H24", "label": "scam", "lang": "hi", "level": "danger", "rules": ["lookalike_link", "suspicious_link", "account_block_threat", "urgency"], "classifier": null}
+{"id": "H25", "label": "scam", "lang": "hi", "level": "danger", "rules": ["pin_to_receive", "urgency"], "classifier": null}
+{"id": "H26", "label": "scam", "lang": "hi", "level": "danger", "rules": ["otp_request"], "classifier": null}
+{"id": "H27", "label": "scam", "lang": "ta", "level": "danger", "rules": ["utility_disconnection", "urgency", "call_this_number"], "classifier": null}
+{"id": "H28", "label": "scam", "lang": "ta", "level": "danger", "rules": ["pin_to_receive", "prize_lottery"], "classifier": null}
+{"id": "H29", "label": "scam", "lang": "ta", "level": "danger", "rules": ["lookalike_link", "suspicious_link", "account_block_threat"], "classifier": null}
+{"id": "H30", "label": "scam", "lang": "ta", "level": "danger", "rules": ["otp_request", "urgency"], "classifier": null}
+{"id": "H31", "label": "scam", "lang": "tanglish", "level": "danger", "rules": ["utility_disconnection", "urgency", "call_this_number"], "classifier": 0.625}
+{"id": "H32", "label": "scam", "lang": "en", "level": "danger", "rules": ["lookalike_link", "suspicious_link", "urgency"], "classifier": 0.937}
+{"id": "H33", "label": "scam", "lang": "en", "level": "danger", "rules": ["screen_share_app", "call_this_number"], "classifier": 0.94}
+{"id": "H34", "label": "scam", "lang": "en", "level": "danger", "rules": ["lookalike_upi_id", "utility_disconnection", "urgency"], "classifier": 0.618}
+{"id": "H35", "label": "scam", "lang": "en", "level": "danger", "rules": ["account_block_threat", "urgency", "call_this_number"], "classifier": 0.915}
+{"id": "H36", "label": "scam", "lang": "en", "level": "danger", "rules": ["advance_fee"], "classifier": 0.959}
+{"id": "H37", "label": "scam", "lang": "en", "level": "danger", "rules": ["advance_fee"], "classifier": 0.858}
+{"id": "H38", "label": "scam", "lang": "en", "level": "danger", "rules": ["advance_fee", "easy_money_job"], "classifier": 0.867}
+{"id": "H39", "label": "scam", "lang": "en", "level": "danger", "rules": ["otp_request"], "classifier": 0.845}
+{"id": "H40", "label": "scam", "lang": "en", "level": "danger", "rules": ["secret_details_request", "lookalike_link"], "classifier": 0.79}
+{"id": "H41", "label": "scam", "lang": "en", "level": "danger", "rules": ["pin_to_receive", "collect_request_lure", "lookalike_upi_id"], "classifier": 0.777}
+{"id": "H42", "label": "scam", "lang": "hinglish", "level": "danger", "rules": ["advance_fee", "prize_lottery"], "classifier": 0.217}
+{"id": "H43", "label": "scam", "lang": "en", "level": "caution", "rules": ["family_money_request", "secrecy"], "classifier": 0.31}
+{"id": "H44", "label": "scam", "lang": "en", "level": "danger", "rules": ["digital_arrest", "authority_threat", "secrecy"], "classifier": 0.865}
+{"id": "H45", "label": "scam", "lang": "en", "level": "danger", "rules": ["secret_details_request", "urgency", "call_this_number"], "classifier": 0.981}
+{"id": "L01", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.989}
+{"id": "L02", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.782}
+{"id": "L03", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.861}
+{"id": "L04", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.058}
+{"id": "L05", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.144}
+{"id": "L06", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.905}
+{"id": "L07", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.945}
+{"id": "L08", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.893}
+{"id": "L09", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.837}
+{"id": "L10", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.014}
+{"id": "L11", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.727}
+{"id": "L12", "label": "legit", "lang": "en", "level": "none", "rules": ["urgency"], "classifier": 0.298}
+{"id": "L13", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.441}
+{"id": "L14", "label": "legit", "lang": "hi", "level": "none", "rules": [], "classifier": null}
+{"id": "L15", "label": "legit", "lang": "hi", "level": "none", "rules": ["urgency"], "classifier": null}
+{"id": "L16", "label": "legit", "lang": "hi", "level": "none", "rules": [], "classifier": null}
+{"id": "L17", "label": "legit", "lang": "ta", "level": "none", "rules": [], "classifier": null}
+{"id": "L18", "label": "legit", "lang": "ta", "level": "none", "rules": [], "classifier": null}
+{"id": "L19", "label": "legit", "lang": "ta", "level": "none", "rules": [], "classifier": null}
+{"id": "L20", "label": "legit", "lang": "en", "level": "none", "rules": ["urgency"], "classifier": 0.319}
+{"id": "L21", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.556}
+{"id": "L22", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.417}
+{"id": "L23", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.755}
+{"id": "L24", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.345}
+{"id": "L25", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.635}
+{"id": "L26", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.224}
+{"id": "L27", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.781}
+{"id": "L28", "label": "legit", "lang": "hinglish", "level": "none", "rules": [], "classifier": 0.027}
+{"id": "L29", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.359}
+{"id": "L30", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.712}
+{"id": "L31", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.598}
+{"id": "L32", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.823}
+{"id": "L33", "label": "legit", "lang": "hi", "level": "none", "rules": [], "classifier": null}
+{"id": "L34", "label": "legit", "lang": "ta", "level": "none", "rules": [], "classifier": null}
+{"id": "L35", "label": "legit", "lang": "en", "level": "none", "rules": [], "classifier": 0.988}

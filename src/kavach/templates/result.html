@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Kavach · {{ t('level_' ~ r.level) }}{% endblock %}
+{% block main %}
+  <section class="verdict verdict-{{ r.level }}" aria-labelledby="verdict-title">
+    <img class="verdict-icon" src="/static/{{ {'danger': 'stop', 'caution': 'caution', 'none': 'info'}[r.level] }}.svg" alt="" width="64" height="64">
+    <div>
+      <h1 id="verdict-title">{{ t('level_' ~ r.level) }}</h1>
+      <p>{{ t('level_' ~ r.level ~ '_sub') }}</p>
+    </div>
+  </section>
+
+  {% if r.actions %}
+  <section class="card" aria-labelledby="todo">
+    <h2 id="todo">{{ t('todo') }}</h2>
+    <ol class="actions">
+      {% for a in r.actions %}<li>{{ a }}</li>{% endfor %}
+      {% if r.level != 'none' %}
+        <li>{{ t('report_1930') }}</li>
+        <li>{{ t('report_chakshu') }}</li>
+      {% endif %}
+    </ol>
+  </section>
+  {% endif %}
+
+  {% if r.findings %}
+  <section class="card" aria-labelledby="why">
+    <h2 id="why">{{ t('why') }}</h2>
+    <ul class="reasons">
+      {% for f in r.findings %}
+      <li class="reason w{{ f.weight }}">
+        <h3>{{ f.title }}</h3>
+        <p>{{ f.why }}</p>
+        {% if f.evidence %}
+          <p class="evidence-label">{{ t('we_noticed') }}:</p>
+          {% for e in f.evidence %}<blockquote class="evidence">{{ e }}</blockquote>{% endfor %}
+        {% endif %}
+        <p class="source">{{ t('source') }}: <a href="{{ f.source_url }}" rel="noreferrer noopener" target="_blank">{{ f.source_name }}</a></p>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if r.level == 'none' %}
+  <section class="card" aria-labelledby="general">
+    <h2 id="general">{{ t('tips') }}</h2>
+    <ul class="actions">
+      {% for f in r.tips %}<li><strong>{{ f.title }}.</strong> {{ f.why }}</li>{% endfor %}
+      <li>{{ t('general_1') }}</li>
+      <li>{{ t('general_2') }}</li>
+      <li>{{ t('general_3') }}</li>
+    </ul>
+  </section>
+  {% endif %}
+
+  <details class="card disclosure">
+    <summary>{{ t('wrong_q') }}</summary>
+    <p>{{ t('wrong_a') }}</p>
+  </details>
+
+  <details class="card disclosure">
+    <summary>{{ t('your_message') }}</summary>
+    <pre class="message">{{ r.message_safe }}</pre>
+    {% if r.classifier_used %}
+      <p class="hint">{{ t('classifier_used', pct=r.classifier_pct) }}</p>
+    {% else %}
+      <p class="hint">{{ t('classifier_skipped') }}</p>
+    {% endif %}
+    {% if r.rule_ids %}<p class="hint mono">{{ r.rule_ids | join(', ') }}</p>{% endif %}
+  </details>
+
+  <p><a class="button primary" href="/?lang={{ lang }}">{{ t('again') }}</a></p>
+{% endblock %}
