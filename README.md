@@ -10,7 +10,7 @@ It runs on your own computer. The message is never sent anywhere.
 * **The safer outcome:** a message like "To receive your refund, accept the request and enter your UPI PIN" gets a clear "Warning: this looks like a scam", the reason in their language ("The UPI PIN is only for sending money"), and the next step (do not enter the PIN, call the bank on the number on your card, call 1930 if money was lost).
 * **One limitation:** Kedayam only knows the tricks it has rules for. A new scam script that avoids those patterns gets "No known scam pattern found", which is why it never says "safe".
 
-See [DESIGN.md](DESIGN.md) for the user, the harm, how success is measured and the responsible design choices, and [RULES.md](RULES.md) for the hackathon rules this was built to.
+A two minute demo script is in [docs/DEMO.md](docs/DEMO.md) and ready-to-paste submission text in [docs/SUBMISSION.md](docs/SUBMISSION.md). See [DESIGN.md](DESIGN.md) for the user, the harm, how success is measured and the responsible design choices, and [RULES.md](RULES.md) for the hackathon rules this was built to.
 
 ## Run it
 
