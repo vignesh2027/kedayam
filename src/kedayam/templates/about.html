@@ -2,25 +2,22 @@
 {% block title %}Kedayam · {{ t('about') }}{% endblock %}
 {% block main %}
   <h1 class="lead">{{ t('about') }}</h1>
-  <section class="card prose" lang="en">
-    <h2>What it does</h2>
-    <p>Kedayam checks a message you paste against a list of tricks that scammers use in India, taken from public advisories by RBI, NPCI, the Ministry of Home Affairs (I4C) and the Department of Telecommunications. It explains each warning sign in English, Tamil or Hindi and tells you what to do next.</p>
-    <h2>What it does not do</h2>
+  <section class="card prose">
+    <h2>{{ a.does_h }}</h2>
+    <p>{{ a.does }}</p>
+    <h2>{{ a.not_h }}</h2>
     <ul>
-      <li>It never says a message is safe. The best result is "No known scam pattern found".</li>
-      <li>It cannot check whether a phone number, UPI ID or link really belongs to a bank. It only spots impersonation patterns.</li>
-      <li>New scam scripts that avoid these patterns will not be caught.</li>
-      <li>It does not report anything for you. Call 1930 or use cybercrime.gov.in.</li>
+      {% for item in a.not %}<li>{{ item }}</li>{% endfor %}
     </ul>
-    <h2>Your privacy</h2>
-    <p>Kedayam runs on this computer. It only accepts connections from this computer, does not send your message or screenshot anywhere, does not save them, and does not keep logs of what you check. Screenshots are read in memory by the Tesseract program on this computer. The page loads no outside fonts, scripts or trackers.</p>
-    <h2>The wording check</h2>
-    <p>Kedayam also has a small statistical model trained on a public SMS phishing dataset. In testing it often gave high scores to ordinary bank alerts, because the normal messages in its training data are mostly personal chat. So it does not change the result; it is only shown in the details for English messages.</p>
+    <h2>{{ a.privacy_h }}</h2>
+    <p>{{ a.privacy }}</p>
+    <h2>{{ a.model_h }}</h2>
+    <p>{{ a.model }}</p>
     {% if meta %}
-    <p class="hint">Dataset: {{ meta.dataset }}. Test split precision {{ meta.test.precision }}, recall {{ meta.test.recall }} (same source as the training data).</p>
+    <p class="hint" lang="en">Dataset: {{ meta.dataset }}. Test split precision {{ meta.test.precision }}, recall {{ meta.test.recall }} (same source as the training data).</p>
     {% endif %}
-    <h2>Sources</h2>
-    <ul>
+    <h2>{{ a.sources_h }}</h2>
+    <ul lang="en">
       {% for key, (name, url) in sources.items() %}
         <li><a href="{{ url }}" rel="noreferrer noopener" target="_blank">{{ name }}</a></li>
       {% endfor %}

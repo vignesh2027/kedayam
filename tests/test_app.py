@@ -101,3 +101,14 @@ def test_logo_served_and_old_name_gone(client):
         assert "Kedayam" in page
         for old in ("Kavach", "கவச்", "कवच"):
             assert old not in page
+
+
+@pytest.mark.parametrize("lang", LANGS)
+def test_about_page_translated(client, lang):
+    from kedayam.i18n import ABOUT
+
+    assert set(ABOUT[lang]) == set(ABOUT["en"])
+    assert len(ABOUT[lang]["not"]) == len(ABOUT["en"]["not"])
+    r = client.get(f"/about?lang={lang}")
+    assert ABOUT[lang]["privacy_h"] in r.text
+    assert ABOUT[lang]["not"][0].replace('"', "&#34;") in r.text

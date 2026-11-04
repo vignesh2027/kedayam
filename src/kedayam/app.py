@@ -20,7 +20,7 @@ from starlette.formparsers import MultiPartParser
 from . import classifier as clf
 from . import ocr
 from .engine import MAX_CHARS, Result, analyse
-from .i18n import ACTION_TEXT, LANG_NAMES, LANGS, RULE_TEXT, SOURCE_LINKS, lang_or_default, t
+from .i18n import ABOUT, ACTION_TEXT, LANG_NAMES, LANGS, RULE_TEXT, SOURCE_LINKS, lang_or_default, t
 from .textutil import defang
 
 HERE = Path(__file__).resolve().parent
@@ -169,7 +169,7 @@ async def about(request: Request, lang: str = "en"):
 
         meta = json.loads(meta_path.read_text())
     return templates.TemplateResponse(
-        request, "about.html", base_context(request, lang, sources=SOURCE_LINKS, meta=meta)
+        request, "about.html", base_context(request, lang, sources=SOURCE_LINKS, meta=meta, a=ABOUT[lang_or_default(lang)])
     )
 
 

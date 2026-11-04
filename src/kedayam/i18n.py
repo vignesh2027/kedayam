@@ -390,6 +390,57 @@ ACTION_TEXT: dict[str, dict[str, str]] = {
     },
 }
 
+ABOUT: dict[str, dict] = {
+    "en": {
+        "does_h": "What it does",
+        "does": "Kedayam checks a message or screenshot against a list of tricks that scammers use in India, taken from public advisories by RBI, NPCI, the Ministry of Home Affairs (I4C) and the Department of Telecommunications. It explains each warning sign in English, Tamil or Hindi and tells you what to do next.",
+        "not_h": "What it does not do",
+        "not": [
+            "It never says a message is safe. The best result is \"No known scam pattern found\".",
+            "It cannot check whether a phone number, UPI ID or link really belongs to a bank. It only spots impersonation patterns.",
+            "New scam scripts that avoid these patterns will not be caught.",
+            "It does not report anything for you. Call 1930 or use cybercrime.gov.in."
+        ],
+        "privacy_h": "Your privacy",
+        "privacy": "Kedayam runs on this computer. It only accepts connections from this computer, does not send your message or screenshot anywhere, does not save them, and does not keep logs of what you check. Screenshots are read in memory by the Tesseract program on this computer. The page loads no outside fonts, scripts or trackers.",
+        "model_h": "The wording check",
+        "model": "Kedayam also has a small statistical model trained on a public SMS phishing dataset. In testing it often gave high scores to ordinary bank alerts, because the normal messages in its training data are mostly personal chat. So it does not change the result; it is only shown in the details for English messages.",
+        "sources_h": "Sources"
+    },
+    "ta": {
+        "does_h": "இது என்ன செய்கிறது",
+        "does": "இந்தியாவில் மோசடிக்காரர்கள் பயன்படுத்தும் தந்திரங்களின் பட்டியலுடன் உங்கள் செய்தியையோ ஸ்கிரீன்ஷாட்டையோ கேடயம் ஒப்பிட்டுப் பார்க்கிறது. இந்தப் பட்டியல் RBI, NPCI, உள்துறை அமைச்சகம் (I4C), தொலைத்தொடர்புத் துறை ஆகியவற்றின் பொது எச்சரிக்கைகளிலிருந்து எடுக்கப்பட்டது. ஒவ்வொரு எச்சரிக்கை அறிகுறியையும் தமிழ், இந்தி அல்லது ஆங்கிலத்தில் விளக்கி, அடுத்து என்ன செய்ய வேண்டும் என்று சொல்கிறது.",
+        "not_h": "இது என்ன செய்யாது",
+        "not": [
+            "ஒரு செய்தி பாதுகாப்பானது என்று இது ஒருபோதும் சொல்லாது. சிறந்த முடிவு \"தெரிந்த மோசடி முறை எதுவும் கிடைக்கவில்லை\" என்பதுதான்.",
+            "ஒரு போன் நம்பர், UPI ID அல்லது லிங்க் உண்மையில் வங்கிக்குச் சொந்தமானதா என்று இதனால் சரிபார்க்க முடியாது. ஆள்மாறாட்ட முறைகளை மட்டுமே கண்டுபிடிக்கும்.",
+            "இந்த முறைகளைத் தவிர்க்கும் புதிய மோசடிச் செய்திகள் பிடிபடாமல் போகலாம்.",
+            "இது உங்களுக்காக எதையும் புகார் செய்யாது. 1930 க்கு அழையுங்கள் அல்லது cybercrime.gov.in ஐப் பயன்படுத்துங்கள்."
+        ],
+        "privacy_h": "உங்கள் தனியுரிமை",
+        "privacy": "கேடயம் இந்தக் கணினியிலேயே இயங்குகிறது. இந்தக் கணினியிலிருந்து மட்டுமே இணைப்புகளை ஏற்கிறது. உங்கள் செய்தியையோ ஸ்கிரீன்ஷாட்டையோ எங்கும் அனுப்பாது, சேமிக்காது, நீங்கள் சரிபார்ப்பவற்றைப் பதிவு செய்யாது. ஸ்கிரீன்ஷாட்கள் இந்தக் கணினியில் உள்ள Tesseract நிரலால் நினைவகத்திலேயே படிக்கப்படுகின்றன. இந்தப் பக்கம் வெளி எழுத்துருக்கள், ஸ்கிரிப்டுகள், கண்காணிப்புக் கருவிகள் எதையும் ஏற்றாது.",
+        "model_h": "சொல் சரிபார்ப்பு",
+        "model": "பொது SMS மோசடித் தரவுத்தொகுப்பில் பயிற்சி பெற்ற ஒரு சிறிய புள்ளியியல் மாதிரியும் கேடயத்தில் உள்ளது. சோதனையில் அது சாதாரண வங்கிச் செய்திகளுக்கும் அதிக மதிப்பெண் தந்தது, ஏனெனில் அதன் பயிற்சித் தரவில் உள்ள சாதாரண செய்திகள் பெரும்பாலும் தனிப்பட்ட உரையாடல்கள். எனவே அது முடிவை மாற்றாது; ஆங்கிலச் செய்திகளுக்கு விவரங்களில் மட்டும் காட்டப்படுகிறது.",
+        "sources_h": "ஆதாரங்கள்"
+    },
+    "hi": {
+        "does_h": "यह क्या करता है",
+        "does": "केडयम आपके संदेश या स्क्रीनशॉट को उन चालों की सूची से मिलाता है जो भारत में ठग इस्तेमाल करते हैं। यह सूची RBI, NPCI, गृह मंत्रालय (I4C) और दूरसंचार विभाग की सार्वजनिक चेतावनियों से ली गई है। यह हर चेतावनी के संकेत को हिन्दी, तमिल या अंग्रेज़ी में समझाता है और बताता है कि आगे क्या करें।",
+        "not_h": "यह क्या नहीं करता",
+        "not": [
+            "यह कभी नहीं कहता कि कोई संदेश सुरक्षित है। सबसे अच्छा नतीजा \"कोई जानी-पहचानी धोखाधड़ी नहीं मिली\" है।",
+            "यह नहीं जाँच सकता कि कोई फ़ोन नंबर, UPI ID या लिंक सच में किसी बैंक का है। यह सिर्फ़ नकल करने के तरीकों को पहचानता है।",
+            "जो नए ठगी संदेश इन तरीकों से बचकर लिखे गए हों, वे पकड़ में नहीं आएँगे।",
+            "यह आपके लिए कोई शिकायत दर्ज नहीं करता। 1930 पर कॉल करें या cybercrime.gov.in इस्तेमाल करें।"
+        ],
+        "privacy_h": "आपकी निजता",
+        "privacy": "केडयम इसी कंप्यूटर पर चलता है। यह सिर्फ़ इसी कंप्यूटर से कनेक्शन लेता है, आपका संदेश या स्क्रीनशॉट कहीं नहीं भेजता, सेव नहीं करता, और आपने क्या जाँचा इसका कोई रिकॉर्ड नहीं रखता। स्क्रीनशॉट इसी कंप्यूटर पर Tesseract प्रोग्राम द्वारा मेमोरी में ही पढ़े जाते हैं। यह पेज कोई बाहरी फ़ॉन्ट, स्क्रिप्ट या ट्रैकर लोड नहीं करता।",
+        "model_h": "शब्द जाँच",
+        "model": "केडयम में एक छोटा सांख्यिकीय मॉडल भी है जिसे एक सार्वजनिक SMS धोखाधड़ी डेटासेट पर सिखाया गया है। जाँच में यह आम बैंक संदेशों को भी अक्सर ज़्यादा अंक देता था, क्योंकि इसके सीखने वाले डेटा में आम संदेश ज़्यादातर निजी बातचीत हैं। इसलिए यह नतीजा नहीं बदलता; अंग्रेज़ी संदेशों के लिए सिर्फ़ विवरण में दिखाया जाता है।",
+        "sources_h": "स्रोत"
+    }
+}
+
 SOURCE_LINKS = {
     "NPCI-SAFETY": ("NPCI UPI Safety Shield", "https://www.npci.org.in/what-we-do/upi/upi-safety-shield"),
     "RBI-BEAWARE": ("RBI BE(A)WARE booklet, 2022", "https://rbidocs.rbi.org.in/rdocs/content/pdfs/BEAWARE07032022.pdf"),
