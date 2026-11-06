@@ -1,14 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="kd-title">
-  <title id="kd-title">Kedayam</title>
-  <!-- Shield: violet rim, blue field -->
-  <path d="M256 36c58 34 118 50 176 52v150c0 112-72 196-176 238C152 434 80 350 80 238V88c58-2 118-18 176-52z" fill="#4C1D95"/>
-  <path d="M256 78c46 25 94 38 140 41v119c0 90-56 160-140 196-84-36-140-106-140-196V119c46-3 94-16 140-41z" fill="#2563EB"/>
-  <!-- A watchful eye whose lower edge is a check mark: look, then check, before you pay -->
-  <clipPath id="kd-eye"><path d="M136 244C188 168 300 150 384 198L232 336Z"/></clipPath>
-  <path d="M136 244C188 168 300 150 384 198L232 336Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="10" stroke-linejoin="round"/>
-  <g clip-path="url(#kd-eye)">
-    <circle cx="258" cy="232" r="50" fill="#4C1D95"/>
-    <circle cx="258" cy="232" r="21" fill="#0B1B33"/>
-    <circle cx="274" cy="216" r="10" fill="#FFFFFF"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Kedayam"><title>Kedayam</title><rect width="512" height="512" rx="116" fill="#142B5C"/><g transform="translate(256 256) rotate(45)"><path d="M58 -104V104A46 46 0 1 0 104 58H-104A46 46 0 1 0 -58 104V-104A46 46 0 1 0 -104 -58H104A46 46 0 1 0 58 -104Z" fill="none" stroke="#D4A84B" stroke-width="22" stroke-linejoin="round"/><circle cx="104" cy="104" r="11" fill="#FFF3D6"/><circle cx="-104" cy="104" r="11" fill="#FFF3D6"/><circle cx="-104" cy="-104" r="11" fill="#FFF3D6"/><circle cx="104" cy="-104" r="11" fill="#FFF3D6"/><circle cx="0" cy="0" r="20" fill="#FFF3D6"/></g></svg>

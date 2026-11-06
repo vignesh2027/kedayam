@@ -1,4 +1,4 @@
-<img src="src/kedayam/static/logo-512.png" width="112" alt="Kedayam logo: a shield with an eye whose lower edge is a check mark">
+<img src="src/kedayam/static/logo-512.png" width="112" alt="Kedayam logo, a kolam: one unbroken line looped round four dots, guarding the one in the middle">
 
 # Kedayam
 

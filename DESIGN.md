@@ -74,7 +74,7 @@ It does not add a phone "share to Kedayam" button: that needs a service worker, 
 
 ## Logo
 
-`src/kedayam/static/logo.svg` (and a 512 px PNG, `logo-512.png`): a violet shield with a blue field holding a watchful eye whose lower edge is a check mark, for "look, then check, before you pay". It uses only the theme colours. It deliberately avoids rupee signs, arrows, the tricolour, the Ashoka emblem, a tiger or palm tree, and bank-style roundels, so it does not resemble any bank, NPCI, UPI, RBI or government mark. It was drawn by hand for this project as a plain SVG.
+`src/kedayam/static/logo.svg` (and a 512 px PNG, `logo-512.png`): a pulli kolam, the line drawing made at the doorstep of Tamil homes every morning. One unbroken brass (#D4A84B) line loops round four dots and keeps the dot in the middle inside it, on a midnight blue (#142B5C) tile: Kedayam stands at the threshold, the way a kolam does, and keeps the person inside safe. It is set at 45 degrees with rice white dots in the loops, so it reads as a kolam and not as the upright four-loop "place of interest" sign. A simpler drawing with a heavier line and only the centre dot, `favicon.svg`, is the browser tab icon. It deliberately avoids rupee signs, arrows, the tricolour, the Ashoka emblem, a tiger or palm tree, and bank-style roundels, so it does not resemble any bank, NPCI, UPI, RBI or government mark. It was drawn by hand for this project as a plain SVG.
 
 ## Name search
 
