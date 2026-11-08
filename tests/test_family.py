@@ -120,3 +120,22 @@ def test_family_names_are_escaped(client):
     res = client.post("/check", data={"text": SCAM, "lang": "en"})
     assert "<b>Ravi</b>" not in res.text
     assert "&lt;b&gt;Ravi&lt;/b&gt;" in res.text
+
+
+def test_hosted_family_is_per_browser_and_in_memory(monkeypatch):
+    from kedayam import app as app_module, i18n
+
+    monkeypatch.setattr(fam, "HOSTED", True)
+    monkeypatch.setattr(app_module, "HOSTED", True)
+    monkeypatch.setattr(i18n, "HOSTED", True)
+    monkeypatch.setattr(fam, "_memory", type(fam._memory)())
+    with TestClient(app, base_url="https://testserver") as a, TestClient(app, base_url="https://testserver") as b:
+        assert "public demo" in a.get("/?lang=en").text
+        assert setup_family(a).status_code == 303
+        assert not fam.path().exists()
+        warn_a = a.post("/check", data={"text": SCAM, "lang": "en"}).text
+        warn_b = b.post("/check", data={"text": SCAM, "lang": "en"}).text
+        assert "Ravi" in warn_a and "Ravi" not in warn_b
+        assert "Modal" in a.get("/about?lang=en").text
+        a.post("/family/remove", data={"lang": "en"})
+        assert "Ravi" not in a.post("/check", data={"text": SCAM, "lang": "en"}).text

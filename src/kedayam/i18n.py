@@ -7,6 +7,8 @@ text should be reviewed by native speakers who work with older adults.
 
 from __future__ import annotations
 
+import os
+
 LANGS = ("en", "ta", "hi")
 LANG_NAMES = {"en": "English", "ta": "தமிழ்", "hi": "हिन्दी"}
 
@@ -523,6 +525,35 @@ def lang_or_default(lang: str | None) -> str:
     return lang if lang in LANGS else "en"
 
 
+HOSTED = os.environ.get("KEDAYAM_HOSTED") == "1"
+
+# Wording for the public demo, where Kedayam runs on a server rather than the parent's own computer.
+HOSTED_UI = {
+    "en": {
+        "privacy": "This is the public demo. Your message or screenshot is checked in memory and then discarded. Kedayam does not save it or log it. Installed on your own computer, nothing leaves it.",
+        "family_intro": "For a son, daughter or carer: set this up once on your parent's computer. Kedayam will then remind them to call you before acting on a suspicious message. On this public demo it is kept in memory for this browser only and is wiped when the demo restarts.",
+        "family_removed": "Family setup removed from this browser.",
+    },
+    "ta": {
+        "privacy": "இது பொது முன்னோட்டம். உங்கள் செய்தியோ ஸ்கிரீன்ஷாட்டோ நினைவகத்திலேயே சரிபார்க்கப்பட்டு உடனே நீக்கப்படும். கேடயம் அதைச் சேமிக்காது, பதிவு செய்யாது. உங்கள் சொந்தக் கணினியில் நிறுவினால், எதுவும் வெளியே செல்லாது.",
+        "family_intro": "மகன், மகள் அல்லது பராமரிப்பாளருக்கு: உங்கள் பெற்றோரின் கணினியில் இதை ஒருமுறை அமைக்கவும். சந்தேகமான செய்தி வந்தால், எதையும் செய்யும் முன் உங்களை அழைக்குமாறு கேடயம் நினைவூட்டும். இந்தப் பொது முன்னோட்டத்தில் இது இந்த உலாவிக்கு மட்டும் நினைவகத்தில் வைக்கப்பட்டு, முன்னோட்டம் மீண்டும் தொடங்கும்போது அழிக்கப்படும்.",
+        "family_removed": "குடும்ப அமைப்பு இந்த உலாவியிலிருந்து நீக்கப்பட்டது.",
+    },
+    "hi": {
+        "privacy": "यह सार्वजनिक डेमो है। आपका संदेश या स्क्रीनशॉट मेमोरी में ही जाँचा जाता है और फिर हटा दिया जाता है। केडयम उसे सेव नहीं करता और उसका रिकॉर्ड नहीं रखता। अपने कंप्यूटर पर इंस्टॉल करने पर कुछ भी बाहर नहीं जाता।",
+        "family_intro": "बेटे, बेटी या देखभाल करने वाले के लिए: इसे अपने माता-पिता के कंप्यूटर पर एक बार सेट करें। फिर शक वाले संदेश पर कुछ करने से पहले केडयम उन्हें आपको फ़ोन करने की याद दिलाएगा। इस सार्वजनिक डेमो में यह सिर्फ़ इसी ब्राउज़र के लिए मेमोरी में रहता है और डेमो दोबारा शुरू होने पर मिट जाता है।",
+        "family_removed": "परिवार सेटअप इस ब्राउज़र से हटा दिया गया।",
+    },
+}
+HOSTED_ABOUT_PRIVACY = {
+    "en": "This public demo runs on a small Modal server. Your message or screenshot is checked in memory and discarded; it is not saved and there are no access logs. Screenshots are read in memory by Tesseract. Family setup is kept in memory for this browser only. Installed on your own computer, Kedayam only accepts connections from that computer and nothing leaves it. The page loads no outside fonts, scripts or trackers.",
+    "ta": "இந்தப் பொது முன்னோட்டம் ஒரு சிறிய Modal சர்வரில் இயங்குகிறது. உங்கள் செய்தியோ ஸ்கிரீன்ஷாட்டோ நினைவகத்திலேயே சரிபார்க்கப்பட்டு நீக்கப்படும்; சேமிக்கப்படாது, அணுகல் பதிவுகளும் இல்லை. ஸ்கிரீன்ஷாட்டுகளை Tesseract நினைவகத்திலேயே படிக்கிறது. குடும்ப அமைப்பு இந்த உலாவிக்கு மட்டும் நினைவகத்தில் வைக்கப்படும். உங்கள் சொந்தக் கணினியில் நிறுவினால், கேடயம் அந்தக் கணினியிலிருந்து மட்டுமே இணைப்புகளை ஏற்கும், எதுவும் வெளியே செல்லாது. இந்தப் பக்கம் வெளி எழுத்துருக்கள், ஸ்கிரிப்டுகள் அல்லது கண்காணிப்புகளை ஏற்றுவதில்லை.",
+    "hi": "यह सार्वजनिक डेमो एक छोटे Modal सर्वर पर चलता है। आपका संदेश या स्क्रीनशॉट मेमोरी में ही जाँचा जाता है और हटा दिया जाता है; न सेव होता है, न कोई एक्सेस लॉग रहता है। स्क्रीनशॉट Tesseract मेमोरी में ही पढ़ता है। परिवार सेटअप सिर्फ़ इसी ब्राउज़र के लिए मेमोरी में रहता है। अपने कंप्यूटर पर इंस्टॉल करने पर केडयम सिर्फ़ उसी कंप्यूटर से कनेक्शन लेता है और कुछ भी बाहर नहीं जाता। यह पेज कोई बाहरी फ़ॉन्ट, स्क्रिप्ट या ट्रैकर लोड नहीं करता।",
+}
+
+
 def t(lang: str, key: str, **kw: object) -> str:
-    s = UI[lang_or_default(lang)][key]
+    lang = lang_or_default(lang)
+    s = HOSTED_UI[lang].get(key) if HOSTED else None
+    s = s or UI[lang][key]
     return s.format(**kw) if kw else s

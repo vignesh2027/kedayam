@@ -8,6 +8,12 @@ Plain text, ready to paste. Numbers come from `eval/RESULTS.md`; regenerate with
 
 Check before you pay: a local scam checker that explains suspicious UPI and SMS messages to older parents in India, in Tamil, Hindi or English, and never says "safe".
 
+## Links
+
+* Try it live: https://applemacbook6sep2004--kedayam.us-east.modal.run (the first visit after a quiet spell takes a few seconds; switch language at the top, and try the example messages in the README). Messages and screenshots are checked in memory and never saved or logged. Family setup is kept in memory for your browser only.
+* Source code: [GITHUB REPO LINK]
+* Demo video: [YOUTUBE LINK]
+
 ## Who it helps, the risk, the improvement
 
 * **User:** a retired parent in India who uses UPI and reads English slowly, and the son or daughter who worries about them.
@@ -36,11 +42,13 @@ Built during SafeSpace Hacks (from 4 November 2026; see the git history): the ru
 
 Reused: Tesseract OCR and its tessdata_fast English, Tamil and Hindi models (Apache 2.0); FastAPI, Starlette, Uvicorn, Jinja2, scikit-learn, Pillow, python-multipart, pytest, httpx; the Mishra and Soni SMS Phishing Dataset (CC BY 4.0); scam patterns and advice from public RBI, NPCI, Ministry of Home Affairs (I4C) and DoT advisories.
 
-One credits line required by the rules is left for the entrant to complete; see the "Open item" in RULES.md.
+Hosting for the public demo: Modal.
+
+[AI-ASSISTANCE CREDITS LINE]
 
 ## Technologies
 
-Python 3.12 with uv, FastAPI, Jinja2 server-rendered HTML and CSS (no JavaScript), scikit-learn, Tesseract OCR, pytest.
+Python 3.12 with uv, FastAPI, Jinja2 server-rendered HTML and CSS (no JavaScript), scikit-learn, Tesseract OCR, pytest. The public demo runs on Modal.
 
 ## Challenges and what we learned
 
@@ -51,4 +59,4 @@ Python 3.12 with uv, FastAPI, Jinja2 server-rendered HTML and CSS (no JavaScript
 
 ## Setup for judges
 
-See the README: `uv sync`, `uv run kedayam`, open http://127.0.0.1:8740. Screenshot checking needs `brew install tesseract` (or `apt install tesseract-ocr`) and `uv run kedayam-ocr-setup` once.
+The quickest way is the live demo: https://applemacbook6sep2004--kedayam.us-east.modal.run. It is the same code with `KEDAYAM_HOSTED=1`: it accepts its own host name, keeps family setup in memory per browser, and says on the page that it is a public demo. To run it on your own computer, see the README: `uv sync`, `uv run kedayam`, open http://127.0.0.1:8740. Screenshot checking needs `brew install tesseract` (or `apt install tesseract-ocr`) and `uv run kedayam-ocr-setup` once.

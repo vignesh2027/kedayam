@@ -6,6 +6,8 @@ Kedayam (கேடயம், Tamil for "shield") helps older parents in India ch
 
 It runs on your own computer. The message is never sent anywhere.
 
+**Live demo:** https://applemacbook6sep2004--kedayam.us-east.modal.run. The public demo runs the same code on one small Modal container that sleeps when idle (the first visit takes a few seconds). There, messages and screenshots are checked in memory and discarded, never saved or logged, and family setup is kept in memory for your browser only and wiped when the demo restarts. The page says it is a public demo. Use the fictional example messages below.
+
 * **Who it is for:** a retired parent who uses UPI and gets messages about refunds, KYC, electricity bills, prizes or "police cases", and the son or daughter who sets it up for them.
 * **The safer outcome:** a message like "To receive your refund, accept the request and enter your UPI PIN" gets a clear "Warning: this looks like a scam", the reason in their language ("The UPI PIN is only for sending money"), and the next step (do not enter the PIN, call the bank on the number on your card, call 1930 if money was lost).
 * **One limitation:** Kedayam only knows the tricks it has rules for. A new scam script that avoids those patterns gets "No known scam pattern found", which is why it never says "safe".
@@ -101,6 +103,10 @@ To retrain the wording model by hand: `uv run kedayam-train`.
 * Every result has an "I think this result is wrong" section that explains how to verify independently.
 * Kedayam refuses requests addressed to any host name other than 127.0.0.1 or localhost, and refuses form posts from other websites, so a web page you visit cannot quietly change the family contact number.
 * All example messages, phone numbers and UPI IDs are made up.
+
+## Hosted demo
+
+`modal_app.py` deploys the demo with `modal deploy modal_app.py`: half a CPU, 512 MB, scale to zero, Tesseract with the same pinned tessdata_fast models, and `KEDAYAM_HOSTED=1`. In hosted mode the server also accepts the host name in `KEDAYAM_ALLOWED_HOSTS` (the cross-site form check still applies), family setup lives in memory keyed by a random per-browser cookie instead of `instance/family.json`, and the privacy and family text says it is a public demo, in all three languages.
 
 ## Credits and data
 

@@ -10,12 +10,22 @@ from __future__ import annotations
 import json
 import os
 import re
+from collections import OrderedDict
+from contextvars import ContextVar
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
 from .i18n import LANGS
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+# Hosted demo mode: the family setup is kept in memory per browser (a random cookie id),
+# never written to disk, and lost when the demo restarts.
+HOSTED = os.environ.get("KEDAYAM_HOSTED") == "1"
+OWNER: ContextVar[str] = ContextVar("owner", default="")
+MAX_BROWSERS = 500
+_memory: "OrderedDict[str, Family]" = OrderedDict()
 
 
 def data_dir() -> Path:
@@ -59,6 +69,8 @@ def validate(lang: str, name: str, phone: str, bank: str = "", bank_phone: str =
 
 
 def load() -> Family | None:
+    if HOSTED:
+        return _memory.get(OWNER.get())
     try:
         data = json.loads(path().read_text(encoding="utf-8"))
         return validate(data["lang"], data["name"], data["phone"], data.get("bank", ""), data.get("bank_phone", ""))
@@ -67,6 +79,12 @@ def load() -> Family | None:
 
 
 def save(f: Family) -> None:
+    if HOSTED:
+        _memory.pop(OWNER.get(), None)
+        _memory[OWNER.get()] = f
+        while len(_memory) > MAX_BROWSERS:
+            _memory.popitem(last=False)
+        return
     d = data_dir()
     d.mkdir(parents=True, exist_ok=True)
     tmp = path().with_suffix(".tmp")
@@ -77,4 +95,7 @@ def save(f: Family) -> None:
 
 
 def clear() -> None:
+    if HOSTED:
+        _memory.pop(OWNER.get(), None)
+        return
     path().unlink(missing_ok=True)

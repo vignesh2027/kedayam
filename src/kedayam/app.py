@@ -7,6 +7,8 @@ it. Messages are processed in memory, never written to disk or logs.
 from __future__ import annotations
 
 import os
+import re
+import secrets
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -21,7 +23,7 @@ from . import classifier as clf
 from . import family as fam
 from . import ocr
 from .engine import MAX_CHARS, Result, analyse
-from .i18n import ABOUT, ACTION_TEXT, LANG_NAMES, LANGS, RULE_TEXT, SOURCE_LINKS, lang_or_default, t
+from .i18n import ABOUT, ACTION_TEXT, HOSTED_ABOUT_PRIVACY, LANG_NAMES, LANGS, RULE_TEXT, SOURCE_LINKS, lang_or_default, t
 from .textutil import defang
 
 HERE = Path(__file__).resolve().parent
@@ -52,6 +54,10 @@ app.mount("/static", StaticFiles(directory=HERE / "static"), name="static")
 # DNS rebinding, and refusing cross-site form posts stops a web page you visit
 # from silently changing the family contact number.
 ALLOWED_HOSTS = {"127.0.0.1", "localhost", "testserver"}
+# The public demo (KEDAYAM_HOSTED=1) also accepts its own host name, given in KEDAYAM_ALLOWED_HOSTS.
+HOSTED = fam.HOSTED
+ALLOWED_HOSTS |= {h.strip().lower() for h in os.environ.get("KEDAYAM_ALLOWED_HOSTS", "").split(",") if h.strip()}
+COOKIE = "kedayam_id"
 
 
 def _host_only(value: str) -> str:
@@ -72,7 +78,20 @@ async def security_headers(request: Request, call_next):
             origin_host = origin.split("://", 1)[-1]
             if origin == "null" or origin_host.lower() != host.lower():
                 return PlainTextResponse("Form posts from other websites are not accepted.", status_code=403)
-    response = await call_next(request)
+    fresh = False
+    if HOSTED:  # each browser gets its own in-memory family setup
+        owner = request.cookies.get(COOKIE, "")
+        fresh = not re.fullmatch(r"[A-Za-z0-9_-]{16,64}", owner)
+        if fresh:
+            owner = secrets.token_urlsafe(18)
+        token = fam.OWNER.set(owner)
+    try:
+        response = await call_next(request)
+    finally:
+        if HOSTED:
+            fam.OWNER.reset(token)
+    if fresh:
+        response.set_cookie(COOKIE, owner, httponly=True, samesite="lax", secure=True, max_age=7 * 24 * 3600)
     response.headers["Content-Security-Policy"] = CSP
     response.headers["Cache-Control"] = "no-store"
     # same-origin, not no-referrer: with no-referrer Chrome sends "Origin: null"
@@ -235,6 +254,11 @@ async def family_card(request: Request, lang: str | None = None):
     return templates.TemplateResponse(request, "card.html", base_context(request, lang))
 
 
+def about_text(lang: str) -> dict:
+    a = ABOUT[lang_or_default(lang)]
+    return {**a, "privacy": HOSTED_ABOUT_PRIVACY[lang_or_default(lang)]} if HOSTED else a
+
+
 @app.get("/about", response_class=HTMLResponse)
 async def about(request: Request, lang: str | None = None):
     lang = default_lang(lang)
@@ -245,7 +269,7 @@ async def about(request: Request, lang: str | None = None):
 
         meta = json.loads(meta_path.read_text())
     return templates.TemplateResponse(
-        request, "about.html", base_context(request, lang, sources=SOURCE_LINKS, meta=meta, a=ABOUT[lang_or_default(lang)])
+        request, "about.html", base_context(request, lang, sources=SOURCE_LINKS, meta=meta, a=about_text(lang))
     )
 
 
