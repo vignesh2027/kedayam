@@ -34,3 +34,7 @@ About 300 words of narration, which fits two minutes at a calm pace.
 ## Shots to capture if recording is not possible
 
 The `docs/screenshots/` folder already has every scene: 02 and 04 (Tamil home and warning), 08 (screenshot check), 07 (no pattern found), 12 to 14 (family mode and card).
+
+## As recorded (8 Nov 2026)
+
+The video follows this script on the hosted demo (https://applemacbook6sep2004--kedayam.us-east.modal.run) with family mode set up off camera first. It opens on a phone card with the fictional SMS, labelled as fictional. The README results step became an evaluation card with the same figures. It runs 2:38.8. Full notes: /Users/vignesh/dev-challenges/nov/video/kedayam-demo-notes.md.
