@@ -37,4 +37,4 @@ The `docs/screenshots/` folder already has every scene: 02 and 04 (Tamil home an
 
 ## As recorded (8 Nov 2026)
 
-The video follows this script on the hosted demo (https://applemacbook6sep2004--kedayam.us-east.modal.run) with family mode set up off camera first. It opens on a phone card with the fictional SMS, labelled as fictional. The README results step became an evaluation card with the same figures. It runs 2:38.8. Full notes: /Users/vignesh/dev-challenges/nov/video/kedayam-demo-notes.md.
+The video follows this script on the hosted demo (https://kedayam.140-245-16-129.sslip.io) with family mode set up off camera first. It opens on a phone card with the fictional SMS, labelled as fictional. The README results step became an evaluation card with the same figures. It runs 2:38.8. Full notes: /Users/vignesh/dev-challenges/nov/video/kedayam-demo-notes.md.
