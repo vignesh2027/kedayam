@@ -4,6 +4,8 @@ Plain text, ready to paste. Numbers come from `eval/RESULTS.md`; regenerate with
 
 ## Name and pitch
 
+Team: Vigneshwar L (solo), final-year CSE student, Takshashila University, Chennai.
+
 **Kedayam** (Tamil for "shield")
 
 Check before you pay: a local scam checker that explains suspicious UPI and SMS messages to older parents in India, in Tamil, Hindi or English, and never says "safe".
@@ -11,7 +13,7 @@ Check before you pay: a local scam checker that explains suspicious UPI and SMS 
 ## Links
 
 * Try it live: https://kedayam.140-245-16-129.sslip.io (switch language at the top, and try the example messages in the README). Messages and screenshots are checked in memory and never saved or logged. Family setup is kept in memory for your browser only.
-* Source code: [GITHUB REPO LINK]
+* Source code: https://github.com/vignesh2027/kedayam
 * Demo video: [YOUTUBE LINK]
 
 ## Who it helps, the risk, the improvement
@@ -44,7 +46,7 @@ Reused: Tesseract OCR and its tessdata_fast English, Tamil and Hindi models (Apa
 
 Hosting for the public demo: an Oracle Cloud Always Free VM (Docker behind Caddy); `modal_app.py` is kept as an alternative host.
 
-[AI-ASSISTANCE CREDITS LINE]
+AI assistance: the code and documentation were written with help from AI coding assistants (Claude Code). I directed the work, reviewed it and ran the tests myself. The demo video narration is synthetic speech (Kokoro 82M text to speech, voice af_heart), not my own voice. The video was recorded before the demo moved hosts, so its closing card shows an old Modal address; the working demo is the link above. The app itself uses no AI model at run time: it is rules plus Tesseract OCR.
 
 ## Technologies
 
